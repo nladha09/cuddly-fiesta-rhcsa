@@ -4,7 +4,7 @@ install & configure LDAP and integrated DNS server w/ 3 IPA server solution
 
 In the exam you will already have this machine pre-configured:
 
-![](https://res.cloudinary.com/dlsvazigf/image/upload/v1585774617/lab-environment.jpg)
+![lab-environment](images/lab-environment.jpg)
 
 __________
 
@@ -32,7 +32,19 @@ Advantages of YUM v4 over YUM v3:
 - The basic installation provides a new version of the `ifup` & `ifdown` scripts which call *NetworkManager* theough the `nmcli` tool.
 - *Network scripts* are deprecated in RHEL 8 & are no longer provided by default.
 
+5.) **Storage** - *Stratis* is now available in RHEL 8
 
+- *Stratis* is a new local storage manager. It provides managed file systems on top of pools of storage w/ addt'l features to the user.
+
+6.) **System Authentication** - `authselect` replaces `authconfig` tool used for system authentication (LDAP Authentication in this course).
+
+- You will not be able to use `authconfig-tui` in RHEL 8 to configure LDAP Authentication
+
+- You can join IPA domain on `ipaserver.example.com` by executing below commands on your system & can use LDAP users created on `ipaserver.example.com` host.
+
+- `yum install ipa-client` - to install ipa-client package
+
+- `ipa-client-install` - to join IPA domain on FREEIPA Server
 
 
 
