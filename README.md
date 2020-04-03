@@ -51,5 +51,7 @@ Advantages of YUM v4 over YUM v3:
 ###### <span style="color:yellow">* There are other differences (security & virtualization) b/w RHEL 7 & 8 but are not covered in the RHCSA exam.</span>
 
 
-
+TODO:
+- [x] Build VM
+- [ ] look up how patches / updates are done on RHEL 8 (licensing involved?)
 
