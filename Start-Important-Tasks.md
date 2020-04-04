@@ -2,6 +2,8 @@
 
 ## Installing RHEL 8 VM on VMware Workstation (RHEL 8)
 
+---
+
 > <span style="font-family:courier new">**Task 1. Install RHEL 8 VM on VMware workstation using image file with disk space allocation as below**:
 >> Total Disk Space (Max Disk Size) - 40 GiB\
 "/" - 15 GiB\
@@ -25,6 +27,8 @@ Procedure (Building VM):
 
 - run this command as Administrator: `bcdedit /set hypervisorlaunchtype off` & restart your host (`bcdedit /set hypervisorlaunchtype auto` to turn back on)
 
+---
+
 Procedure (RHEL 8 Installation set up): 
 - Choose your preferred language for RHEL 8 installation
 - Decide the installation destination for RHEL 8
@@ -40,6 +44,8 @@ Procedure (RHEL 8 Installation set up):
 
 ## Interrupt the boot process to set the root password (to gain access)
 
+---
+
 > <span style="font-family:courier new">**Task 2. Interrupt the boot process to set the root password as "password" (important for exam)**:</span>
 
 Procedure:
@@ -51,7 +57,7 @@ Procedure:
 ![rd.break](images/rd.break.jpg)
 
 - At this stage, root file system is mounted in read-only mode to /sysroot & must be remounted with r/w permissions
-     - `mount -o remount, rw /sysroot` - To mount the root file system with r/w permissions
+     - `mount -o remount, rw /sysroot` - to mount the root file system with r/w permissions
      - `chroot /sysroot` - switch /sysroot to "/" file system
      - `passwd` - to set the root password
      - (in the exam you will be given a password to set)
@@ -64,6 +70,8 @@ Procedure:
 
 ## Set the SELinux to Enforcing mode
 
+---
+
 > <span style="font-family:courier new">**Task 3. Set the SELinux on system.example.com in enforcing mode**:</span>
 
 Commands:
@@ -75,6 +83,9 @@ Commands:
 ![selinux-enforcing](images/selinux-enforcing.jpg)
 
 ## Verifying SELinux status
+
+---
+
 > <span style="font-family:courier new">**Task 4. Verifying SELinux status on system.example.com (in the exam, you must check to see that SELinux is in `enforcing` mode)**:</span>
 
 Commands:
