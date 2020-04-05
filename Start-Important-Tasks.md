@@ -56,15 +56,15 @@ Procedure:
 
 ![rd.break](images/rd.break.jpg)
 
-- At this stage, root file system is mounted in read-only mode to /sysroot & must be remounted with r/w permissions
-     - `mount -o remount, rw /sysroot` - to mount the root file system with r/w permissions
-     - `chroot /sysroot` - switch /sysroot to "/" file system
+- At this stage, root file system ("/") is mounted in read-only mode to /sysroot & must be remounted with r/w permissions
+     - `mount -o remount, rw /sysroot` - to mount the root file system ("/")with r/w permissions
+     - `chroot /sysroot` - switch /sysroot to "/" file system (executing `chroot` ON `/sysroot`)
      - `passwd` - to set the root password
      - (in the exam you will be given a password to set)
      - must trigger SELinux relabeling...
      - `touch /.autorelabel` - to relabel the SElinux contexts
-     - `exit`
-     - `exit`
+     - `exit` - exit out of root file system ("/")
+     - `exit` - exit out of /sysroot
 
 ![new-root-pw](images/new-root-pw.jpg)
 
@@ -76,7 +76,7 @@ Procedure:
 
 Commands:
 - `getenforce` - to check the status of SELinux mode
-- `vim etc/selinux/config` - change the SELinux status from `=disabled` to `=enforcing mode`
+- `vim /etc/selinux/config` - change the SELinux status from `=disabled` to `=enforcing mode`
 - `:wq` or `:q` if no changes made (mine was already showing SELinux as `enforcing`)
 - `systemctl reboot` - restart the system
 
@@ -91,4 +91,10 @@ Commands:
 Commands:
 - `sestatus` or `getenforce` - to check status of SELinux
 
+ ###### <span style="color:yellow"> * localhost login with server (w/o GUI) - username: `root`; pw: `admin` (or w/e pw you've set)</span>
 
+ ###### <span style="color:yellow"> * need to "activate a connection" using `nmtui` and second selection. CLI way = `ifup eth0` & then `nmcli d` to check status </span>
+
+**TODO**:
+- [x] ~~understand `chroot` cmd~~
+- [ ] rebuild VM and do not run `touch /.autorelabel` to see if SELinux is still in `enforcing` mode (my thoughts are that it will be `disabled`)
