@@ -76,7 +76,7 @@ Procedure:
 
 Commands:
 - `getenforce` - to check the status of SELinux mode
-- `vim /etc/selinux/config` - change the SELinux status from `=disabled` to `=enforcing mode`
+- `vim /etc/selinux/config` - change the SELinux status from `=disabled` to `=enforcing` mode
 - `:wq` or `:q` if no changes made (mine was already showing SELinux as `enforcing`)
 - `systemctl reboot` - restart the system
 
