@@ -4,7 +4,18 @@
 
 ---
 
+> <span style="font-family:courier new">**Task 1. Execute command to change system to run in "Graphical" target. Make this setting persistent & system should boot in same target on next reboot**:</span>
+
+![linux-config-pic-run-levels](images/linux-config-pic-run-levels.jpg)
+
 Commands:
+- `systemctl get-default` - to display the current SYSTEMD (Linux initialization system & service manager; provides logging daemon & other tools & utils for common admin tasks)
+- `systemctl isolate graphical.target` - to change the SYSTEMD target in current session
+- `systemctl set-default graphical.target` - to set the SYSTEMD target which system will use by default
+- `cd /usr/lib/systemd/system` - directory containing SYSTEMD units of installed packages
+- `cd /etc/systemd/system` - directory containing local SYSTEMD configurations
+- `man runlevel` - *runlevels man page*
+- `man systemd.unit` - manual page for SYSTEMD units
 
 ## Assign Host-Name to Machine
 
@@ -74,4 +85,4 @@ Commands:
 
 
 **TODO**:
-- [ ]
+- [ ] for practice-env question: Thank you for creating this practice env; it saves a lot of time and learned a bit about Ansible & Vagrant in implementing the set up. Will `systemctl isolate graphical.target` or `systemctl set-default graphical.target` not work on the environments b/c the initial creation was not "server w/ GUI"? 
