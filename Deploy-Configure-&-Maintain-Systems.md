@@ -37,17 +37,33 @@ Commands:
 ---
 
 > <span style="font-family:courier new">**Task 3. Configure the IP 192.168.122.10 on et0 interface on `system.example.com` & set the DNS IP as 192.168.122.254.**:
->> - Configure the Default Gateway as 192.168.122.1
+>> - Configure the Default Gateway as 192.168.122.1 (default gateway is used to route traffic to some other network when no other route specification matches the destination IP address of a packet.) 
 >> - IP assigned must be static</span>
 
 Commands:
 - `nmcli connection show` - to display existing connections w/ interface names and status.
-- `ip addr` - to display the existing interfaces w/ IP address assigned & status of interfaces.
-- `nmcli connection add con-name system type ethernet ifname eth0 ipv4.addresses 192.168.122.10/24 ipv4.gateway 192.168.122.1 ipv4.dns 192.168.122.254 ipv4.method manual` - to add new static connection
-- `nmcli connection up system` - to activate the connection
+- `ip addr` or `ip a` - to display the existing interfaces w/ IP address assigned & status of interfaces.
+- `systemctl status NetworkManager` - to check status of NetworkManager
+- `nmcli connection add con-name system ifname eth0 type ethernet ipv4.addresses 192.168.122.10/24 ipv4.gateway 192.168.122.1 ipv4.dns 192.168.122.254 ipv4.method manual` - to add new static connection
+---
+> - let's break that one down (video starts at 2:33): `nmcli` (interface used to config networking)
+> - `connection add con-name <insert name>` (connection add; connection name)
+> - `ifname eth0` (interface name - must be **eth0**)
+> - `type ethernet ipv4.addresses <IP addr>` (to assign ipv4 address - Don't forget to specify subnet mask - default is **/32** & your machine will not communicate with any other machine on the network)
+> - `ipv4.dns <insert DNS IP addr>` - no subnet mask is required here
+> - `ipv4.gateway <insert default gateway IP>` - default gateway
+> - `ipv4.method manual` - (_most important part_) - ipv4 method is set to manual to configure static connection - by default it will not be static if you forget this.
+---
+- `nmcli connection up <connection name>` - to activate the connection (w/ connection name; ex: "system")
 - `systemctl restart NetworkManager` - to restart NetworkManager
 - `cd /etc/sysconfig/network-scripts` - to verify the connection settings
 - `cat /etc/resolv.conf` - to verify DNS IP address
+- `route -n` or `ip route show` - verify default gateway
+
+![ipv4.addresses-ipv4.gateway-ipv4.dns-ipv4.method](images/ipv4.addresses-ipv4.gateway-ipv4.dns-ipv4.method.jpg)
+
+
+![etc-sysconfig-network-scripts](images/etc-sysconfig-network-scripts.jpg)
 
 
 ## Yum repositories BaseOS & AppStream in (RHEL 8)
