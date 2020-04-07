@@ -106,6 +106,38 @@ Commands:
 > - `man createrepo_c` - manual page for createrepo_c
 >    - **Note** - `createrepo_c` is not available by default; you need to install the package before you can use it: `yum install createrepo_c`
 
+---
+#### using the pre-configured practice env - 
+
+On `server1` I ran `cd /etc/yum.repos.d` and `touch rpm.repo`
+
+then `vi rpm.repo` & added:
+
+```
+[BaseOS]
+name=BaseOS
+baseurl=http://repo.eight.example.com/BaseOS
+gpgcheck=0
+
+[AppStream]
+name=AppStream|
+baseurl=http://repo.eight.example.com/AppStream
+gpgcheck=0
+```
+
+which follows this format -
+```
+[repo id]
+description (name)
+baseurl
+gpgcheck
+```
+then ran `dnf clean all`
+then ran `dnf repolist` to see repos
+
+I then ran `dnf install nginx` to test installing packages & worked
+
+
 ## Configure System to use BaseOS & AppStream Repositories (RHEL 8)
 
 ---
@@ -151,3 +183,4 @@ Commands:
 
 **TODO**:
 - [ ] for practice-env question: Thank you for creating this practice env; it saves a lot of time and learned a bit about Ansible & Vagrant in implementing the set up. Will `systemctl isolate graphical.target` or `systemctl set-default graphical.target` not work on the environments b/c the initial creation was not "server w/ GUI"? 
+- [ ] for the exam - will you need to create a local repo via mounting the ISO or using remote baseurl?
