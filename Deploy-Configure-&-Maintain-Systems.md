@@ -11,13 +11,13 @@
 
 
 Commands:
-- `systemctl get-default` - to display the current SYSTEMD (Linux initialization system & service manager; provides logging daemon & other tools & utils for common admin tasks)
-- `systemctl isolate graphical.target` - to change the SYSTEMD target in current session
-- `systemctl set-default graphical.target` - to set the SYSTEMD target which system will use by default
-- `cd /usr/lib/systemd/system` - directory containing SYSTEMD units of installed packages
-- `cd /etc/systemd/system` - directory containing local SYSTEMD configurations
-- `man runlevel` - *runlevels man page*
-- `man systemd.unit` - manual page for SYSTEMD units
+- `systemctl get-default` - to display the current SYSTEMD (Linux initialization system & service manager; provides logging daemon & other tools & utils for common admin tasks).
+- `systemctl isolate graphical.target` - to change the SYSTEMD target in current session.
+- `systemctl set-default graphical.target` - to set the SYSTEMD target which system will use by default.
+- `cd /usr/lib/systemd/system` - directory containing SYSTEMD units of installed packages.
+- `cd /etc/systemd/system` - directory containing local SYSTEMD configurations.
+- `man runlevel` - *runlevels man page*.
+- `man systemd.unit` - manual page for SYSTEMD units.
 
 ## Assign Host-Name to Machine
 
@@ -26,9 +26,9 @@ Commands:
 > <span style="font-family:courier new">**Task 2. Assign the host name `system.example.com` to your machine**:</span>
 
 Commands:
-- `hostnamectl` - to display the current hostanem assigned to system
-- `hostnamectl set-hostname <insert hostname>` - to assign new hostname to machine [example: `hostnamectl set-hostname system.example.com`]
-- `logout` - to logout and log back in to see the updated hostname
+- `hostnamectl` - to display the current hostanem assigned to system.
+- `hostnamectl set-hostname <insert hostname>` - to assign new hostname to machine [example: `hostnamectl set-hostname system.example.com`].
+- `logout` - to logout and log back in to see the updated hostname.
 
 ![hostnamectl](images/hostnamectl.jpg)
 
@@ -44,7 +44,7 @@ Commands:
 - `nmcli connection show` - to display existing connections w/ interface names and status.
 - `ip addr` or `ip a` - to display the existing interfaces w/ IP address assigned & status of interfaces.
 - `systemctl status NetworkManager` - to check status of NetworkManager
-- `nmcli connection add con-name system ifname eth0 type ethernet ipv4.addresses 192.168.122.10/24 ipv4.gateway 192.168.122.1 ipv4.dns 192.168.122.254 ipv4.method manual` - to add new static connection
+- `nmcli connection add con-name system ifname eth0 type ethernet ipv4.addresses 192.168.122.10/24 ipv4.gateway 192.168.122.1 ipv4.dns 192.168.122.254 ipv4.method manual` - to add new static connection.
 ---
 > - let's break that one down (video starts at 2:33): `nmcli` (interface used to config networking)
 > - `connection add con-name <insert name>` (connection add; connection name)
@@ -54,11 +54,11 @@ Commands:
 > - `ipv4.gateway <insert default gateway IP>` - default gateway
 > - `ipv4.method manual` - (_most important part_) - ipv4 method is set to manual to configure static connection - by default it will not be static if you forget this.
 ---
-- `nmcli connection up <connection name>` - to activate the connection (w/ connection name; ex: "system")
-- `systemctl restart NetworkManager` - to restart NetworkManager
-- `cd /etc/sysconfig/network-scripts` - to verify the connection settings
-- `cat /etc/resolv.conf` - to verify DNS IP address
-- `route -n` or `ip route show` - verify default gateway
+- `nmcli connection up <connection name>` - to activate the connection (w/ connection name; ex: "system").
+- `systemctl restart NetworkManager` - to restart NetworkManager.
+- `cd /etc/sysconfig/network-scripts` - to verify the connection settings.
+- `cat /etc/resolv.conf` - to verify DNS IP address.
+- `route -n` or `ip route show` - verify default gateway.
 
 ![ipv4.addresses-ipv4.gateway-ipv4.dns-ipv4.method](images/ipv4.addresses-ipv4.gateway-ipv4.dns-ipv4.method.jpg)
 
@@ -70,13 +70,41 @@ Commands:
 
 ---
 
-Commands:
+> <span style="font-family:courier new">**On RHEL 8, we need to create (2) different repos for Directories BaseOS & AppStream present in RHEL 8 image file.**:
+>> - BaseOS Repository - all base packages related to OS are provided through BaseOS repository.
+>> - AppStream Repository - all packages related to user space are provided through AppStream Directory. 
+>>    - user space packages are made independent of core kernel related packages in RHEL 8.
+>>    - different versions of user space packages are made available in AppStream at the same time, depending on the requirement.
+>>    - AppStream introduces a concept of modules.
+>>    - in a module, multiple software versions can be offered for same package.
+>>    - each software version is added as a different stream in module.
+>>    - each module has a default Stream (if you don't specify a version - default version will be installed).
+</span>
+
+Commands (related to Modules):
+- `yum module list` or `dnf module list` - list all available modules. (DNF = Dandified YUM; the next-generation version of the Yellowdog Updater, Modified, a package manager for .rpm-based distributions).
+- `yum module info <module_name>` - displays info about modules including Streams, Packages.
+- `yum module info --profile <php:7.2>` - shows info about specific Stream.
+
 
 ## Create local Yum repositiory & Yum groups from ISO-file (RHEL 8)
 
 ---
 
+> <span style="font-family:courier new">**Task 4. Create local yum (dnf) repositories BaseOS & AppStream at location /root/BaseOS & /root/AppStream on system.**:
+>> - Repo should be created with yum group information to use yum groups</span>
+
 Commands:
+- `yum repolist` - to list the repositories configured for system
+- `yum groups list hidden` - to list yum group packages
+- `mount -o loop RHEL8.iso /mnt` - to mount image file on /mnt directory
+- `mkdir /root/BaseOS /root/AppStream` - to create the directories for repositories
+- `cp -iv /mnt/BaseOS/* /root/BaseOS` - copy everything from BaseOS directory /root/BaseOS (`--iv` = interactive verbose / overwrite; see if something is there - see more details by running `man cp`).
+- `cp -iv /mnt/AppStream/* /root/AppStream` - copy everything from AppStream directory /root/AppStream.
+
+> - create the metadata for repositories with `createrepo_c` with `-g` option to include group information file in case it is needed (if metadata is already present, you will not need to execute this).
+> - `man createrepo_c` - manual page for createrepo_c
+>    - **Note** - `createrepo_c` is not available by default; you need to install the package before you can use it: `yum install createrepo_c`
 
 ## Configure System to use BaseOS & AppStream Repositories (RHEL 8)
 
