@@ -87,12 +87,12 @@ Commands (related to Modules):
 - `yum module info --profile <php:7.2>` - shows info about specific Stream.
 
 
-## Create local Yum repositiory & Yum groups from ISO-file (RHEL 8)
+## ~~Create local Yum repositiory & Yum groups from ISO-file (RHEL 8)~~
 
 ---
 
-> <span style="font-family:courier new">**Task 4. Create local yum (dnf) repositories BaseOS & AppStream at location /root/BaseOS & /root/AppStream on system.**:
->> - Repo should be created with yum group information to use yum groups</span>
+> <span style="font-family:courier new">**~~Task 4. Create local yum (dnf) repositories BaseOS & AppStream at location /root/BaseOS & /root/AppStream on system.~~**:
+>> - ~~Repo should be created with yum group information to use yum groups~~</span>
 
 ![local-repo-baseos](images/local-repo-baseos.jpg)
 
@@ -114,7 +114,15 @@ Commands (related to Modules):
 ![repo-metadata-baseos](images/repo-metadata-baseos.jpg)
 
 ---
-#### using the pre-configured practice env - 
+
+
+## Configure System to use BaseOS & AppStream Repositories (RHEL 8)
+
+---
+
+> <span style="font-family:courier new">**Task 5. Configure the system to use BaseOS & AppStream repositories present at `/root/BaseOS` and `/root/AppStream`**:</span>
+
+Commands:
 
 - On `server1` I navigated to the `yum.repos.d` by running `cd /etc/yum.repos.d`
 - created a repo file `touch rpm.repo` named `rpm.repo` (can name whatever as long as it has `.repo` extension
@@ -149,52 +157,130 @@ enabled
 
 I then ran `dnf install nginx` to test installing packages & worked - can also run `dnf remove <package-name>` to remove.
 
-## Configure System to use BaseOS & AppStream Repositories (RHEL 8)
-
----
-
-> <span style="font-family:courier new">**Task 5. Configure the system to use BaseOS & AppStream repositories present at `/root/BaseOS` and `/root/AppStream`**:</span>
-
-Commands:
-
-
 ## Scheduling job using crontab for other user as root user
 
 ---
 
+> <span style="font-family:courier new">**Task 6. Schedule a script `/test.sh` as user "riya" which should be executed every 15 minutes**:</span>
+
 Commands:
+- `useradd riya` - add user "riya"
+- `crontab -u riya -e` - as root, to make edit / entry as riya user
+- `*/15 * * * * /test.sh` - add this line in crontab file - make sure you have spaces b/w stars and add path of file name / script: `/test.sh` - also since "every" 15 mins. use `*/` before 15
+- `:wq` - write to file & quit
+- `crontab -u riya -l` - list all the crontab entries for riya
+- `crontab --help` - crontab help option
+
+![crontab-fields](images/crontab-fields.jpg)
 
 ## Scheduling cron jobs as user other than root
 
 ---
 
+> <span style="font-family:courier new">**Task 7. Schedule a script `/test1.sh` as user "bob" which should be executed 12:15 every Monday**:
+>> - user "bob" should be able to create an entry in crontab file.</span>
+
 Commands:
+- `useradd bob` - add user "bob"
+- `vi /etc/cron.allow` - open `cron.allow` as root & allow / define user "bob"
+- `bob` - make entry in `cron.allow` file
+- `:wq` - write & quit
+- `su - bob` - switch to user "bob"
+- `crontab -l` - list all the crontab entries created by "bob"
+- `crontab -e` - open the crontab file in editing mode
+- `15 12 * * 1 /test1.sh` - add this line in crontab file
+- `:wq` - write & quit
+- `crontab -l` - list the crontab entries to verify the changes done
 
 ## Scheduling jobs using at command
 
 ---
 
+> <span style="font-family:courier new">**Task 8. Schedule below command using `at` to execute 30 mins. from now**:
+> - `ps -ef > process.txt`
+> - check the queue of `at` jobs to verify</span>
+
 Commands:
+- `yum install at` - install the package if not installed
+- `systemctl status atd` - to check status of crond daemon - (MUST check this even tho it's always active and enabled by default)!
+- `systemctl start atd` - to activate / start service
+- `at now + 30 minutes` - execute `at` to schedule job
+- will enter into `at>` prompt --- type `ps -ef > process.txt` (will redirect output to process.txt)
+- `CTRL + "D"` - to exit `at>` prompt (job is now scheduled)
+- `atq` - check `at` jobs queue
+- `atrm` - to delete jobs
 
 ## Configure Service to start System boot
 
 ---
 
+> <span style="font-family:courier new">**Task 9. Install the `autofs` service & configure to start at boot**:</span>
+
 Commands:
+- `yum search autofs` - shows what this tool does - automatically mounting & unmounting filesystems
+- `yum install autofs -y` - to install `autofs` (auto fs) package
+- `systemctl status autofs` - to check status of `autofs` (active or not)
+- `systemctl start autofs` - to start the `autofs` service
+- `systemctl enable autofs` - to configure the service to start at boot
+
+![yum-install-autofs-start-enable](images/yum-install-autofs-start-enable.jpg)
+
+## Configuring System to use time sources
+
+---
+
+> <span style="font-family:courier new">**Task 10. Configure the system to use NTP server - ipaserver.example.com**:
+> - Configure `iburst` option to make the initial synchronization faster</span>
+
+Commands:
+- `systemctl status chronyd` - to check the status of `chronyd` service
+
+Configuration file:
+- `systemctl status chronyd` - check the status of chronyd (always active and enabled by default)
+- `vi /etc/chrony.conf` - open the configuration file
+- `server <insert-name-of-server> iburst` - add this line in file to configure system to use NTP server (used to sync software & hardware times) [ex server name: ipaserver.example.com]
+- `:wq` - write & quit
+- `systemctl restart chronyd` - restart `chronyd`
+- `chronyc sources` or `chronyc sources -v` - to verify the NTP server & more detailed view
+
+![chronyc-sources](images/chronyc-sources.jpg)
+
 
 ## Working with package Module streams (RHEL 8)
 
 ---
 
+> <span style="font-family:courier new">**Task 11. List the AppStream modules available in repository**:
+> - List the different Streams available for perl module
+> - Install Stream 5.26 or perl module</span>
+
 Commands:
+- `dnf module list` or `yum module list` - to list all available modules & their Streams in AppStream repository
+- `dnf module info perl` or `yum module info perl` - to list the different Streams available for perl Stream
+- `dnf module info --profile perl:5.26` or ` yum module info --profile perl:5.26` - to list specific perl Stream
+- `dnf install @perl:5.26` or `yum install @perl:5.26` - to install Stream 5.26 of perl module
+
+- idea here is to know how to work w/ diff modules, how to identify diff Streams & how to install diff Streams
 
 ## Modifying Bootloader (GRUB2) settings
 
 ---
 
-Commands:
+> <span style="font-family:courier new">**Task 12. Modify GRUB2 (Bootloader) settings not to boot the system with GUI Mode booting screen (rhgb)**:
+> - Also all boot message should be shown on screen
+> - Make sure interface names (eth*) should be used</span>
 
+Commands:
+- `vi /etc/default/grub` - open the GRUB settings file in editing mode
+- `GRUB_CMDLINE_LINUX="vconsole.keymap=us crashkernel=auto vconsole.font=latarcyrheb-sun16 net.ifnames=0 biosdevname=0"` - edit the variable **GRUB_CMDLINE_LINUX** - remove `rhgb` & `quiet` from the list & add `net.ifnames=0 biosdevname=0`
+- `grub2-mkconfig -o /boot/grub2/grub.cfg` - rebuild GRUB configuration file every time you make changes in `/etc/default/grub` file
+
+definitions:
+- **rhgb** - Redhat Graphical Boot - This is a GUI Mode booting screen w/ most of the info hidden while user sees the rotating icon spinning & only brief info.
+- **quiet** - hides majority of boot messages before rhgb starts. There are supposed to make the common user more comfortable.
+
+![remove-rhgb-quiet](images/remove-rhgb-quiet.jpg)
 
 **TODO**:
-- [ ] for practice-env question: Thank you for creating this practice env; it saves a lot of time and learned a bit about Ansible & Vagrant in implementing the set up. Will `systemctl isolate graphical.target` or `systemctl set-default graphical.target` not work on the environments b/c the initial creation was not "server w/ GUI"? 
-- [ ] for the exam - will you need to create a local repo via mounting the ISO or using remote baseurl?
+- [x] ~~for practice-env question: Thank you for creating this practice env; it saves a lot of time and learned a bit about Ansible & Vagrant in implementing the set up. Will `systemctl isolate graphical.target` or `systemctl set-default graphical.target` not work on the environments b/c the initial creation was not "server w/ GUI"?~~
+- [x] ~~for the exam - will you need to create a local repo via mounting the ISO or using remote baseurl?~~
