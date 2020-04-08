@@ -81,6 +81,12 @@ Commands:
 >>    - each module has a default Stream (if you don't specify a version - default version will be installed).
 </span>
 
+![local-repo-baseos](images/local-repo-baseos.jpg)
+
+![local-repo-appstream](images/local-repo-appstream.jpg)
+
+![repo-metadata-baseos](images/repo-metadata-baseos.jpg)
+
 Commands (related to Modules):
 - `yum module list` or `dnf module list` - list all available modules. (DNF = Dandified YUM; the next-generation version of the Yellowdog Updater, Modified, a package manager for .rpm-based distributions).
 - `yum module info <module_name>` - displays info about modules including Streams, Packages.
@@ -99,8 +105,9 @@ Commands:
 - `yum groups list hidden` - to list yum group packages
 - `mount -o loop RHEL8.iso /mnt` - to mount image file on /mnt directory
 - `mkdir /root/BaseOS /root/AppStream` - to create the directories for repositories
-- `cp -iv /mnt/BaseOS/* /root/BaseOS` - copy everything from BaseOS directory /root/BaseOS (`--iv` = interactive verbose / overwrite; see if something is there - see more details by running `man cp`).
-- `cp -iv /mnt/AppStream/* /root/AppStream` - copy everything from AppStream directory /root/AppStream.
+- `cp -iv /mnt/BaseOS/* /root/BaseOS` - copy everything from BaseOS directory /root/BaseOS (`--iv` = interactive verbose / overwrite; see if something is there - see more details by running `man cp`)
+- `cp -iv /mnt/AppStream/* /root/AppStream` - copy everything from AppStream directory /root/AppStream
+- `cd` & then `umount /mnt` - go back to home & unmount image file
 
 > - create the metadata for repositories with `createrepo_c` with `-g` option to include group information file in case it is needed (if metadata is already present, you will not need to execute this).
 > - `man createrepo_c` - manual page for createrepo_c
