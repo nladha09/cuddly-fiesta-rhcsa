@@ -8,6 +8,8 @@ In the exam you will already have this machine pre-configured:
 
 __________
 
+**I am following along Prince Bajaj's very helpful [Udemy Course](https://www.udemy.com/course/rhcsa-practice-exam-questions-ex200-redhat-release-7/) to create this study guide.**
+
 ## Differences b/w RHEL 8 & RHEL 7 from RHCSA exam point of view:
 > 1.) <span style="color:green">**Repository**</span> - RHEL 8 is distributed through (2) main repos - make sure you define two repos on RHEL 8:
 - Base OS
