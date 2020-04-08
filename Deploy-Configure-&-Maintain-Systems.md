@@ -81,12 +81,6 @@ Commands:
 >>    - each module has a default Stream (if you don't specify a version - default version will be installed).
 </span>
 
-![local-repo-baseos](images/local-repo-baseos.jpg)
-
-![local-repo-appstream](images/local-repo-appstream.jpg)
-
-![repo-metadata-baseos](images/repo-metadata-baseos.jpg)
-
 Commands (related to Modules):
 - `yum module list` or `dnf module list` - list all available modules. (DNF = Dandified YUM; the next-generation version of the Yellowdog Updater, Modified, a package manager for .rpm-based distributions).
 - `yum module info <module_name>` - displays info about modules including Streams, Packages.
@@ -100,23 +94,30 @@ Commands (related to Modules):
 > <span style="font-family:courier new">**Task 4. Create local yum (dnf) repositories BaseOS & AppStream at location /root/BaseOS & /root/AppStream on system.**:
 >> - Repo should be created with yum group information to use yum groups</span>
 
-Commands:
-- `yum repolist` - to list the repositories configured for system
-- `yum groups list hidden` - to list yum group packages
-- `mount -o loop RHEL8.iso /mnt` - to mount image file on /mnt directory
-- `mkdir /root/BaseOS /root/AppStream` - to create the directories for repositories
-- `cp -iv /mnt/BaseOS/* /root/BaseOS` - copy everything from BaseOS directory /root/BaseOS (`--iv` = interactive verbose / overwrite; see if something is there - see more details by running `man cp`)
-- `cp -iv /mnt/AppStream/* /root/AppStream` - copy everything from AppStream directory /root/AppStream
-- `cd` & then `umount /mnt` - go back to home & unmount image file
+![local-repo-baseos](images/local-repo-baseos.jpg)
 
-> - create the metadata for repositories with `createrepo_c` with `-g` option to include group information file in case it is needed (if metadata is already present, you will not need to execute this).
-> - `man createrepo_c` - manual page for createrepo_c
->    - **Note** - `createrepo_c` is not available by default; you need to install the package before you can use it: `yum install createrepo_c`
+![local-repo-appstream](images/local-repo-appstream.jpg)
+
+~~Commands~~ (**DISREGARD THIS BIT**):
+- ~~`yum repolist` - to list the repositories configured for system~~
+- ~~`yum groups list hidden` - to list yum group packages~~
+- ~~`mount -o loop RHEL8.iso /mnt` - to mount image file on /mnt directory~~
+- ~~`mkdir /root/BaseOS /root/AppStream` - to create the directories for repositories~~
+- ~~`cp -iv /mnt/BaseOS/* /root/BaseOS` - copy everything from BaseOS directory /root/BaseOS (`--iv` = interactive verbose / overwrite; see if something is there - see more details by running `man cp`)~~
+- ~~`cp -iv /mnt/AppStream/* /root/AppStream` - copy everything from AppStream directory /root/AppStream~~
+- ~~`cd` & then `umount /mnt` - go back to home & unmount image file~~
+
+> - ~~create the metadata for repositories with `createrepo_c` with `-g` option to include group information file in case it is needed (if metadata is already present, you will not need to execute this).~~
+> - ~~`man createrepo_c` - manual page for createrepo_c~~
+>    - ~~**Note** - `createrepo_c` is not available by default; you need to install the package before you can use it: `yum install createrepo_c`~~
+
+![repo-metadata-baseos](images/repo-metadata-baseos.jpg)
 
 ---
 #### using the pre-configured practice env - 
 
-On `server1` I ran `cd /etc/yum.repos.d` and `touch rpm.repo`
+- On `server1` I navigated to the `yum.repos.d` by running `cd /etc/yum.repos.d`
+- created a repo file `touch rpm.repo` named `rpm.repo` (can name whatever as long as it has `.repo` extension
 
 then `vi rpm.repo` & added:
 
@@ -125,11 +126,13 @@ then `vi rpm.repo` & added:
 name=BaseOS
 baseurl=http://repo.eight.example.com/BaseOS
 gpgcheck=0
+enabled=1
 
 [AppStream]
 name=AppStream|
 baseurl=http://repo.eight.example.com/AppStream
 gpgcheck=0
+enabled=1
 ```
 
 which follows this format -
@@ -138,18 +141,22 @@ which follows this format -
 description (name)
 baseurl
 gpgcheck
+enabled
 ```
-then ran `dnf clean all`
-then ran `dnf repolist` to see repos
+- then ran `dnf clean all` or `yum clean all` to clear cache
+- then ran `dnf repolist` or `yum repolist` to list the repos configured for the system
+- then run `yum groups list` or `dnf groups list` to list yum group packages
 
-I then ran `dnf install nginx` to test installing packages & worked
-
+I then ran `dnf install nginx` to test installing packages & worked - can also run `dnf remove <package-name>` to remove.
 
 ## Configure System to use BaseOS & AppStream Repositories (RHEL 8)
 
 ---
 
+> <span style="font-family:courier new">**Task 5. Configure the system to use BaseOS & AppStream repositories present at `/root/BaseOS` and `/root/AppStream`**:</span>
+
 Commands:
+
 
 ## Scheduling job using crontab for other user as root user
 
