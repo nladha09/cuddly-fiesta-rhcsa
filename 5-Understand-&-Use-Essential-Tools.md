@@ -108,7 +108,7 @@ Commands:
 - `cat /bob_dir` - to verify results
 
 
-## Use of find command to list all directories & files based on UID
+## Use of `find` command to list all directories & files based on UID
 
 ---
 
@@ -159,7 +159,7 @@ Commands:
 - `tar -czvf etc.tar.gz /etc` - to archive all the contents of "/etc" directory in "/root/etc.tar" file
 
 
-## Decompressing files using gunzip & bunzip2
+## Decompressing files using `gunzip` & `bunzip2`
 
 ---
 
