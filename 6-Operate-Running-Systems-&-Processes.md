@@ -131,62 +131,98 @@ Commands:
 - **NOTE** - to learn about CPU governors - https://www.kernel.org/doc/Documentation/cpu-freq/governors.txt
 
 `man tuned.conf` - man pages (tuned profile definition - consists of `main` & `include` & modify settings based on different plug-ins)
+`man tuned-profiles` - description of basic tuned profiles.
 
 ## Tuned main (Global) config file
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
+Commands: (Global tuned configuration file dissection)
+- `cd /etc/tuned/` - go to the PATH w/ the main tuned config file
+- `ls -lrt` - list the contents
+- `tuned-main.conf` - is the main config file
+- `reapply sysctl = 1` - most important parameter (decides percedence in profile override)
 
 ## Setting tuned profile
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Important topics for RHCSA exam**:</span>
+
+- Listing & setting `tuned` profile
+- Customizing `tuned` profile
+- Merging `tuned` profiles
+
+Commands: (Recommended manual pages)
+- `man tuned`
+- `man tuned-adm`
+- `man tuned.conf`
+- `man tuned-profiles`
+
+> <span style="font-family:courier new">**Task 7. Set the recommended `tuned` profile on system & verify again after changes are done**:</span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
+- `yum install tuned` - installing `tuned` service
+- `systemctl enable --now tuned` - starting & enabling `tuned` service
+- `tuned-adm list` - listing all available `tuned` profiles on system
+- `tuned-adm recommend` - listing `tuned` recommended profile
+- `tuned-adm active` - listing current active profile on system
+- `tuned-adm profile <insert recommended_profile>` - activating recommended `tuned` profile
+- `tuned-adm active` - verifying active profile after changes
 
 ## Customizing tuned profile
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Task 8. Create a custom tuned profile w/ name `myprof` based on base profile `virtual-guest` & add below mentioned different settings**:
+>> - `vm.swappiness=40`
+>> - `CPU governor=powersave
+>> - Make sure system `sysctl` settings should not be overridden by tuned profile. (main configuration file of `tuned` has the `reapply sysctl=1` - so settings will not be overridden) </span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
+- `yum install tuned` - installing `tuned` service
+- `systemctl enable --now tuned` - starting & enabling `tuned` service
+- `tuned-adm active` - listing active `tuned` profile
+- `mkdir /etc/tuned/myprof` - creating directory under `/etc/tuned` to create a new profile w/ name `myprof`
+- `vi /etc/tuned/myprof/tuned.conf` - creating `tuned` configuration file for profile `myprof`
+- `[main]` - header for file
+- `include=virtual-guest` - need to create a profile based on `virtual-guest` profile.
 
-![hostnamectl](images/hostnamectl.jpg)
+--- different plug-ins are defined below ---
 
+- `[cpu]` 
+- `type=cpu` 
+- `governor=powersave` 
+- `[my_sysctl]` 
+- `type=sysctl` 
+- `vm.swappiness=40` 
+- `:wq` 
+
+- `tuned-adm profile myprof` - activating customized `tuned` profile `myprof`
+- `systemctl restart tuned` - restarting `tuned` service to make the changes affective.
+- `tuned-adm active` - listing active `tuned` profile
+- verify `sysctl -a | grep vm.swappiness` - the main config file of `tuned` (`/etc/tuned/tuned-main.conf`) has a `reapply_sysctl = 1` if we changed to `0` and `systemctl restart tuned.service` the `vm.swappiness` would be `40`.
 
 ## Merging tuned profiles
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Task 9. Activate additional `tuned` profile `powersave` to merge w/ existing profile**:
+>> - `powersave` profile must have high priority under conflicting conditions.</span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
+- `yum install tuned` - installing `tuned` service
+- `systemctl enable --now tuned` - starting & enabling `tuned` service
+- `tuned-adm list` - listing available `tuned` profiles
+- `tuned-adm active` - listing active `tuned` profile
+- `tuned-adm profile myprof powersave` - merging existing active profile w/ additional profile `powersave`
+- `systemctl restart tuned` - after applying changes
+- `tuned-adm list` - verifying active profiles
+
+- **NOTE** - `tuned` service tries to optimize the system in the best way possible by merging profiles under load conditions but in case of conflicting settings, last profile is given precedence.
 
 ![hostnamectl](images/hostnamectl.jpg)
+
+**TODO**:
+- [ ]  need to study the manual page - `man tuned.conf`
+- [ ]  study customizing & setting `tuned` profile
