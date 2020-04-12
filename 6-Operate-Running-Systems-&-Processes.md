@@ -4,7 +4,7 @@
 
 ---
 
-> <span style="font-family:courier new">**Task 1. CPU intensive Process w/ name `dd` is running on system w/ NICE (NI) value of -5 & taking more CPU attention than default.**:
+> <span style="font-family:courier new">**Task 1. CPU intensive Process w/ name `dd` is running on system w/ NICE (NI) value of -5 & taking more CPU attention than default**:
 >> - Adjust the niceness value to 5 so that CPU pays less attention to this process.</span>
 
 Commands:
@@ -19,7 +19,7 @@ NICE value can be between -20 to 19. The lesser the (NI) value, the more CPU res
 
 ---
 
-> <span style="font-family:courier new">**Task 2. Run the below command in the background w/ (NI) value of 10.**:
+> <span style="font-family:courier new">**Task 2. Run the below command in the background w/ (NI) value of 10**:
 >> - `sleep 3600`</span>
 
 Commands:
@@ -29,18 +29,18 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 3. Kill the process `dd` to stop forcefully.**:</span>
+> <span style="font-family:courier new">**Task 3. Kill the process `dd` to stop forcefully**:</span>
 
 Commands:
 - `kill -9 <insert PID #>` - to kill the process `dd` forcefully. (`-15` would stop the task gracefully)
 
 - another way - after typing `top` hit `k` and type in "PID #".
 
-## Installing KVM using virt-manager
+## Installing KVM using `virt-manager`
 
 ---
 
-> <span style="font-family:courier new">**Task 4. Install RedHat / CentOS 7 on system as guest OS using KVM hypervisor (very unlikely this will be on exam).**:
+> <span style="font-family:courier new">**Task 4. Install RedHat / CentOS 7 on system as guest OS using KVM hypervisor (very unlikely this will be on exam)**:
 >> - Virtual machine must be started at boot process.</span>
 
 Pre-requisites: (when using Linux as host operating system)
@@ -57,11 +57,11 @@ Commands:
 - `virsh start <insert machine_name>` - to start the machine console.
 - `virsh reboot <insert machine_name>` - to reboot the machine.
 
-## Tuning Kernel Interface parameter vm.swappiness persistently
+## Tuning Kernel Interface parameter `vm.swappiness` persistently
 
 ---
 
-> <span style="font-family:courier new">**Task 5. Modify kernel parameter `vm.swapiness` to set the value to 10.**:
+> <span style="font-family:courier new">**Task 5. Modify kernel parameter `vm.swappiness` to set the value to 10**:
 >> - Changes done should persist after reboot.</span>
 
 - Definition: `vm.swappiness` - the default value of `vm.swappiness` is 60 & represents the percentage of the free memory before activating swap. The lower the value, the less swapping is used & the more memory pages are kept in physical memory.
@@ -83,7 +83,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 6. Modify kernel parameter to disable ipv4 packet forwarding.**:
+> <span style="font-family:courier new">**Task 6. Modify kernel parameter to disable ipv4 packet forwarding**:
 >> - Changes done should persist after reboot.</span>
 
 Definition:
@@ -94,7 +94,45 @@ Commands:
 - for persistent change: `vi /etc/sysctl.conf` & `net.ipv4.ip_forward=0` & `:wq`
 - after reboot, new value will be effective.
 
-## NEW
+## Introduction - Managing tuned profiles
+
+---
+
+### Managing tuned profiles
+- Tuned is a service which monitors the system & optimizes the performances of system for different use cases.
+- There are pre-defined tuned profiles which are present under sub-directories on path `/usr/lib/tuned`.
+- Tuned profiles are designed keeping in mind their parameters linked closely to performance of system:
+    - High Throughput
+    - Low Latency
+    - Saving Power
+
+#### Pre-defined profiles are divided into two categories:
+- Power-saving profiles
+- Performance-boosting profiles
+    - You can customize a tuned profile based on standard profile or can create a completely new profile. Such profiles are always created under directory `/etc/tuned`. In case you want to create a new profile by adding different settings to a pre-defined profile, copy the profile from `/usr/lib/tuned` to `/etc/tuned` & add / modify different settings.
+    - If two profiles have the same name under `/usr/lib/tuned` & `/etc/tuned`, the profile under `/etc/tuned` takes precedence.
+
+
+## Tuned profiles & `tuned.conf`
+
+---
+
+#### Tuned profiles distributed w/ RHEL 8
+
+- balanced (b/w powersave & performance)
+- powersave
+- throughput-performance (designed to give better, or best performance)
+- latency-performance
+- network-latency (based on latency performance)
+- network-throughput (based on throughput performance)
+- virtual-guest (based on throughput performance)
+- virtual-host (based on throughput performance)
+
+- **NOTE** - to learn about CPU governors - https://www.kernel.org/doc/Documentation/cpu-freq/governors.txt
+
+`man tuned.conf` - man pages (tuned profile definition - consists of `main` & `include` & modify settings based on different plug-ins)
+
+## Tuned main (Global) config file
 
 ---
 
@@ -109,7 +147,7 @@ Commands:
 ![hostnamectl](images/hostnamectl.jpg)
 
 
-## NEW
+## Setting tuned profile
 
 ---
 
@@ -124,7 +162,7 @@ Commands:
 ![hostnamectl](images/hostnamectl.jpg)
 
 
-## NEW
+## Customizing tuned profile
 
 ---
 
@@ -139,82 +177,7 @@ Commands:
 ![hostnamectl](images/hostnamectl.jpg)
 
 
-## Use of `tar` command to archive and compress contents of directory
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Use of `tar` command to extract the data from archive
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Use of `tar` to archive contents with `gzip` compression
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Decompressing files using gunzip & bunzip2
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Setting `ugo-rwx` permissions on filesystems
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Creation of symbolic links
+## Merging tuned profiles
 
 ---
 
