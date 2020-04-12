@@ -54,7 +54,7 @@ Commands:
 - `systemctl status libvirtd` - to check the status of `libvirtd` (daemon - sits b/w virtualization layer & administrative layer to access kvm).
 - `virt-manager` - (starts install of kvm) then follow the installation sequence.
 - `virsh list --all` - to list all KVMs running on host machine.
-- `vrish start <insert machine_name>` - to start the machine console.
+- `virsh start <insert machine_name>` - to start the machine console.
 - `virsh reboot <insert machine_name>` - to reboot the machine.
 
 ## Tuning Kernel Interface parameter vm.swappiness persistently
