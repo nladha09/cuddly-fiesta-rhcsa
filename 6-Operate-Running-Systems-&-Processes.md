@@ -221,8 +221,6 @@ Commands:
 
 - **NOTE** - `tuned` service tries to optimize the system in the best way possible by merging profiles under load conditions but in case of conflicting settings, last profile is given precedence.
 
-![hostnamectl](images/hostnamectl.jpg)
-
 **TODO**:
 - [ ]  need to study the manual page - `man tuned.conf`
 - [ ]  study customizing & setting `tuned` profile
