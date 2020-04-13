@@ -141,7 +141,7 @@ Commands: (Global tuned configuration file dissection)
 - `cd /etc/tuned/` - go to the PATH w/ the main tuned config file
 - `ls -lrt` - list the contents
 - `tuned-main.conf` - is the main config file
-- `reapply sysctl = 1` - most important parameter (decides percedence in profile override)
+- `reapply_sysctl = 1` - most important parameter (decides percedence in profile override)
 
 ## Setting tuned profile
 

@@ -224,3 +224,7 @@ Commands:
 - `` - 
 
 ![hostnamectl](images/hostnamectl.jpg)
+
+**TODO**:
+- [ ]  test
+- [ ]  test
