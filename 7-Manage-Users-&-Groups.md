@@ -215,3 +215,4 @@ Commands:
 
 **TODO**:
 - [ ] revisit automount home directory w/ autofs (Task 6. & 7.)
+- [ ] review `useradd` options to familiarize with different useradd options when creating user.
