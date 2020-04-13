@@ -138,7 +138,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task . 6 Configure "server1" to automount home directory of LDAP user "ldap" when logged in**:
+> <span style="font-family:courier new">**Task .6 Configure "server1" to automount home directory of LDAP user "ldap" when logged in**:
 >> - Home directory of LDAP user is `/home/ldapuser/ldap`.
 >> - Home directory is shared by "server2" through NFS export.
 >> - LDAP user should get his home directory when logged in.</span>
@@ -150,58 +150,68 @@ Commands:
 - `vi /etc/auto.master` - define the base location for the home directory in `auto.master` file which is used by `autofs`
 > `/home/ldapuser` `/etc/auto.ldap` (underneath /misc etc.)
 - `:wq`
-- `vi /etc/auto.ldap` - 
-> `ldap` `server2:/home/ldapuser/ldap`
+- `man showmount` - (we will use the `-e` for exports which shows the NFS server's export list)
+- `showmount -e server2:` (hostname for NFS server, if you don't have DNS configured the hostname can be resolved into IP, so you could use IP here - in the exam you will get everything configured on DNS)
+- `vi /etc/auto.ldap` - here we will define the home directory (which is ldap)
+> `ldap` `server2:/home/ldapuser/ldap` (first line)
 - `:wq` 
-- `systemctl restart autofs` - restart the `autofs` service
+- `systemctl restart autofs` - restart the `autofs` service to make all the configs effective
 - `su - ldap` - switch to user ldap
-- `pwd` - ldap home directory should be shown
+- `pwd` - ldap home directory should be shown (`/home/ldapuser/ldap`)
+
+![etc-auto.master](images/etc-auto.master.jpg)
 
 ## Automount for Home Directories of multiple LDAP Users using wild cards
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Task 7. Configure "server1" to aoutmount home directory of LDAP users "ldap1" & "ldap2"**:
+>> - Home directory of LDAP users ldap1 & ldap2 is `/home/ldap1` & `/homeldap2` respectively.
+>> - Home directory is shared by "server2" through NFS export.
+>> - LDAP user should get his home directory when logged in.
+</span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
+- `yum install autofs` - to install packages required `autofs`
+- `systemctl start autofs` - to start the service
+- `systemctl enable autofs` - to enable the service to start automatically on boot
+- `vi /etc/auto.master` - define the base location for the home directory in `auto.master` file which is used by `autofs`
+> `/home` `/etc/auto.ldap12` (underneath previous one added)
+- `:wq`
+- `man showmount` - (we will use the `-e` for exports which shows the NFS server's export list)
+- `showmount -e server2:` (hostname for NFS server, if you don't have DNS configured the hostname can be resolved into IP, so you could use IP here - in the exam you will get everything configured on DNS)
+- `vi /etc/auto.ldap12` - here we will define the home directory (which is ldap12)
+> `*` `server2:/home/&` (first line) (`*` wildcard represents home directories for both users & then the complete path - since we're configuring for both users we use `&` as a wildcard as well)
+- `:wq` 
+- `systemctl restart autofs` - restart the `autofs` service to make all the configs effective
+- `su - ldap1` - switch to user ldap
+- `pwd` - ldap home directory should be shown (`/home/ldapuser/ldap`)
 
 ## Deletion of User & associated data
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Task 8. Delete existing user "maria" from `server1`**:
+>> - User home directory & mailbox should also be deleted.</span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
+- `id maria` - check to see if user maria exists
+- `userdel --help` - to see the limited options (mainly `-r` to remove user and everything else)
+- `userdel -r maria` - to delete user & also home direcotry & mail spool.
 
 ## Configure User to use root privileges w/ `sudo`
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Task 9. Modify user harry account so that harry should be able to use root permissions w/ `sudo`**:
+>> - Create a test user w/ username TEST as harry user.</span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
+- `vi /etc/group` - find the wheel group (empower's a user to execute otherwise restricted cmds) & add user harry to this group
+> `wheel:x:10:harry`
+- `:wq`
+- `su - harry` - switch to user harry
+- `sudo useradd TEST` - add user TEST as user harry w/ sudo & enter harry's pw ("access") it should be created - can verify with `id TEST`
 
 **TODO**:
-- [ ]  test
-- [ ]  
+- [ ] revisit automount home directory w/ autofs (Task 6. & 7.)
