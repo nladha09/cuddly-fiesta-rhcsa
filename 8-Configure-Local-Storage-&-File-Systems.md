@@ -1,5 +1,6 @@
 # Configure Local Storage & File Systems
 
+## Brief Introduction to Standard Partitions
 #### Types of Disks:
 
 ---
@@ -17,38 +18,47 @@
 - create the File System (`mkfs`)
 - Mount the File System on some Directory (`mount`)
 
-## Types of Disks
+## LVMs (Logical Volume Management)
 
 ---
 
-> <span style="font-family:courier new">**Task 1. **:</span>
+- Logical volumes can be extended & reduced depending on the need of time.
 
+#### Steps to configure Disk w/ Logical Volumes:
 
-![name](images/name.jpg)
+--- 
 
+- create the partition (`fdisk`)
+- create the Physical Volume (`pvcreate`) - going to use partition for LVMs
+- create the Volume Group (`vgcreate`) - by using the partition
+- create the Logical Volume (`lvcreate`)
+- create the File System (`mkfs`) - on the LV
+- Mount the File System on some Directory (`mount`)
+
+- Volume Groups can be extended to include new partitions in the future w/o impacting existing partitions - (`vgextend`)
+- Logical volume can be extended depending on available space on volume group - (`lvextend`)
+
+## Creating Extended & Logical Disk Partitions
+
+---
+
+> <span style="font-family:courier new">**Task 1. Create a disk partition of 2 GiB & mount this on `/partition` directory**:
+>> - Partition should use xfs file system.
+>> - Mount should be persistent.</span>
 
 Commands:
 - `` - 
 - `` - 
 - `` - 
 - `` - 
-
-## Securely copying files using scp
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
+- `` - 
+- `` - 
 - `` - 
 - `` - 
 - `` - 
 - `` - 
 
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Use of `grep` to match lines starting w/ pattern
+## Mounting Read-Only File System 
 
 ---
 
