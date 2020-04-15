@@ -57,8 +57,8 @@ Commands:
 - `partprobe` - to make kernel aware of this partition
 - `cat /proc/partitions` - to view partitions (now you can see addt'l partitions)
 ---
+- `mkfs -t xfs -f /dev/sda5` - to create xfs File System on partition (use Logical partition, not extended partition) - can use `-f` option in case fs on some partition already exists.
 - `mkdir /partition` - to create the mount directory
-- `mkfs.xfs -f /dev/sda5` - to create xfs File System on partition (use Logical partition, not extended partition) - can use `-f` option in case fs on some partition already exists.
 - `mount /dev/sda5 /partition/` - to mount partition on directory `/partition`
 - `df -h` - to view mounted (not persistent mount)
 - `mount` - to check the mounted File System
@@ -80,8 +80,8 @@ Commands:
 - `fdisk /dev/sda` - to create partition (we will create a logical partition)
 - _First input_: `n`, press "Enter" (default is first sector), _Second input_: `+1G`, `wq` (to write & quit)
 - `partprobe` - to inform kernel about this partition
-- `mkdir /fat` - to create the mount directory
 - `mkfs -t vfat /dev/sda6` - to create vfat File System, on partition (`-t` = file system type)
+- `mkdir /fat` - to create the mount directory
 - `mount -o ro /dev/sda6 /fat` - to mount partition on directory `/fat`
 - `df -h` or `mount` - to check the mounted File System
 - `lsblk` - to list block devices
@@ -129,9 +129,9 @@ Commands:
 - `vgcreate <insert vg_group name> /dev/sda8` - to create volume group (ex: `vg_group name` = "vg_group" per task)
 - `lvcreate -n <insert lv_volume name> -L 200M vg_group` - to create logical volume on volume group (`-n` = LogicalVolume name; `-L` = LogicalVolume size) (ex: `lv_volume name` = "lv_volume" per task)
 - `lvdisplay` - for more details - (**important to know `LV Path` b/c we are going to use this volume to configure the File System & for mounting purposes**)
-- `mkdir /log_vol` - to create mount directory / point
 - `mkfs -t ext4 /dev/vg_group/lv_volume` - to create ext4 File System for logical volume
-- `mount /dev/vg_group/lv_volume/log_vol` - to mount logical volume on directory `/vol_log` - (mount volume then path for the volume, then mount point)
+- `mkdir /log_vol` - to create mount directory / point
+- `mount /dev/vg_group/lv_volume /log_vol` - to mount logical volume on directory `/vol_log` - (mount volume then path for the volume, then mount point)
 - `mount` - to check the mounted File System
 - `lsblk` - to list block devices
 - `umount /log_vol` - **must unmount prior to executing `mount -a`**
@@ -156,8 +156,8 @@ Commands:
 - `vgcreate -s 16M group /dev/sda9` - (`-s` = physicalextentsize) to create volume group with PE size of 16 MiB
 - `vgcreate --help` - to see different options
 - `lvcreate -n volume -l 20 group` - (`-n` = LogicalVolume name; `-l` = LogicalExtents Number) to create logical volume on volume group using 20 PE's (LV size = 16 * 20 = 320 MiB)
-- `mkdir /volume` - to create mount directory
 - `mkfs -t ext4 /dev/home/volume` - to create ext4 File System for logical volume
+- `mkdir /volume` - to create mount directory
 - `mount /dev/home/volume /volume` - to mount logical volume on directory `/volume`
 - `mount` - to check the mounted File System
 - `blkid` - to grab UUID
@@ -166,82 +166,102 @@ Commands:
 - `umount /volume` - unmount prior to executing `mount -a`
 - `mount -a` - to mount persistently through `fstab` file
 
+## Configuring Logical Volume using 100% free size Volume Group
+
+---
+
+> <span style="font-family:courier new">**Task 6. Configure LVM w/ name "lvm" from volume group "vgroup" of size 1GiB**:
+>> - Logical volume should use complete free space on volume group.
+>> - Create `ext4` file system on thie volume.</span>
+
+Commands:
+- `fdisk /dev/sda` - to create partition (we will create logical partition)
+- _First input_: `n`, press "Enter", _Second input_: `+1G`, _Third input_: `t`, press "Enter" (for default partition), _Fourth input_: `8e`, `wq` (to write and quit)
+- `partprobe` - to make kernel aware of partition
+- `pvcreate /dev/sda11` - to create physical volume
+- `vgcreate <insert vg_group name> /dev/sda11` - to create volume group (ex: "vgroup" per task)
+- `lvcreate --help` - to see different options
+- `lvcreate -n <insert lvm name> -l 100%FREE <insert vg_group name>` - to create logical volume using all free space on volume group (ex: "lvm" = LVM name & volume group name = "vgroup" per task)
+- `lvdisplay` - to view changes
+- `mkfs -t ext4 /dev/vgroup/lvm` - to create `ext4` File System for logical volume
+
+## Extend LVMs along with File Systems
+
+---
+
+> <span style="font-family:courier new">**Task 7. Resize the LVM "log" so that after reboot size should be in between 217MiB to 245MiB**:
+>> - Make sure complete logical volume should be usable. (also extending the File System)</span>
+
+Commands:
+- `lvdisplay` - to display logical volumes
+- `lvextend --help` - to view different options available
+- `lvextend -r -L +130M /dev/vg/log` - (`-r` = resizefs (**Very important to use `-r` when `lvextend`**) & `-L` = size) to extend the logical volume & resize File System
+
+## Extending Volume Group size to increase LVM size
+
+---
+
+> <span style="font-family:courier new">**Task 8. Extend size of LVM w/ name "lvm" to 2 GiB**:
+>> - Create new partition to increase the size of volume group.
+>> - Format the complete volume e/ `ext4` File System.</span>
+
+Commands:
+- `lvdisplay` - check logical volume "lvm"
+- `vgdisplay <insert name of vg_group>` - to check the size of the Volume Group (can't extend size of Logical Volume beyond the Volume Group) (ex: `vgdisplay vgroup`)
+- `fdisk /dev/sda` - to create partition (we will create logical partition)
+- _First input_: `n`, press "Enter", _Second input_: `+2G`, _Third input_: `t`, press "Enter", _Fourth input_: `8e`, `wq` (to write & quit)
+- `partprobe` - to make kernel aware of partition
+- `pvcreate /dev/sda12` - to create physical volume
+- `vgextend --help` - view options for `vgextend`
+- `vgextend <insert vg_group name> /dev/sda12` - to extend volume group (ex: volume group name = "vgroup")
+- `lvextend -r -L +1G /dev/<insert vg_group name>/<insert LVM name>` - to extend the logical volume by 1 GiB (ex: `lvextend -r -L +1G /dev/vgroup/lvm)
+- `mkfs -t ext4 /dev/<insert vg_group name>/<insert LVM name>` - to create `ext4` File System for logical volume (ex: `mkfs -t ext4 /dev/vgroup/lvm`)
+
+## To overwrite existing File System type
+
+---
+
+> <span style="font-family:courier new">**Task 9. Create a standard partition of size 200 MiB & format this w/ `ext4` File System**:
+>> - Change the file system to `xfs` & verify same.</span>
+
+Commands:
+- `fdisk /dev/sda` - to create partition (we will create logical partition)
+- _First input_: `n`, press "Enter" (to select default first sector), _Second input_: `+200M`, `wq` (to write & quit)
+- `partprobe` - to inform kernel about the partition
+- `mkfs -t ext4 /dev/sda13` - create `ext4` File System for partition
+- `mkfs -t xfs -f /dev/sda13` - force the File System change to `xfs` (overwrite)
+- `blkid` - to verify
+
+## Configuring Directory for Group Collaboration
+
+---
+
+> <span style="font-family:courier new">**Task 10. Create a directory `/private/home`**:
+>> - Set the user ownership to "lisa" & group ownership to "sys".
+>> - Give full permissions to group "sys" on this directory.
+>> - User "riya" should have no access on this directory.
+>>- Add user "bob" to group "sys".
+>> - Files created by user "bob" & "lara" should have group ownership to "sys".</span>
+
+Commands:
+- `mkdir -p /private/home` - to create directory
+- `chown lisa:sys /private/home` - to set the user and group ownership
+- `ls -ld` - verify changes
+- `chmod g+rwx /private/home` - to provide full access to "sys" group
+---
+- `yum install acl` - to install the package for `acl` (if not already installed)
+- `setfacl --help` - options for `acl` (`-m` = modify-acl, `-x` = remove-acl, `-k` = remove-default, `-d` = set default acl - applied to future files & dirs, sub-dirs created under the directory)
+---
+- `setfacl -R -m u:riya:- /private/home` - to remove all access for riya on this directory (`-R` for recursive, `-m` for modify, `u:` for user, `-` remove all rights)
+- `setfacl - R -m d:u:riya:- /private/home` - to apply default control list so that it is applicable for  future file & sub-directories under this directory
+- `getfacl /private/home` - to display `acl` applied to directory - user riya has no rights
+- `usermod -aG sys bob` - to assign supplementary group to bob
+- `cat /etc/group` - to check group info
+---
+- `chmod g+s /private/home` - to set the GID (group ID) bit on the directory
+- `getfacl /private/home` - to display `acl` applied to directory
+
 ## NEW
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Use of `find` command to save all directories owned by user
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Use of find command to list all directories & files based on UID
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Use of `tar` command to archive and compress contents of directory
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Use of `tar` command to extract the data from archive
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Use of `tar` to archive contents with `gzip` compression
 
 ---
 
