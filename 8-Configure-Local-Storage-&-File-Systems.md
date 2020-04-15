@@ -258,67 +258,72 @@ Commands:
 - `usermod -aG sys bob` - to assign supplementary group to bob
 - `cat /etc/group` - to check group info
 ---
-- `chmod g+s /private/home` - to set the GID (group ID) bit on the directory
+- `chmod g+s /private/home` - to set the GID (group ID) bit on the directory (`s` is for access control list - this is called group collaboration - when files created by different group members have the group ownership set to the group name)
 - `getfacl /private/home` - to display `acl` applied to directory
 
-## NEW
+## Configuring ACLs on Directories
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Task 11. Create a directory `/system` & configure the access as per below conditions**:
+>> - User "harry" should have full access on directory.
+>> - User "bob" should have read-only access on this directory.
+>> - User "lisa" should have no access on this directory.
+>> - Same access rules should be applicable to future files created under this directory. (default `acl`s should also be applied)</span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
+- `mkdir /system` - to create directory
+- `yum install acl` - to install the package for `acl` (if not already installed)
+- `setfacl -R -m u:harry:rxw /system` - to configure `acl` for harry
+- `setfacl -R -m d:u:harry:rwx /system` - default `acl` for harry
+- `setfacl -R -m u:bob:rx /system` - to configure `acl` for bob (**execution rights are required to move / `cd` to the directory**)
+- `setfacl -R -m d:u:bob:rx /system` - default `acl` for bob
+- `setfacl -R -m u:lisa- /system` - to configure `acl` for lisa
+- `setfacl -R -m d:u:lisa- /system` - default `acl` for lisa
+- `getfacl /system` - display `acl`s
 
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Decompressing files using gunzip & bunzip2
+## Mounting NFS File Systems
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Task 12. Discover the NFS share exported by NFS server "server2"**:
+>> - Mount the share `/nfsshare` on directory `/share` & mount should be persistent. (_everything you do in the exam should be persistent_)
+>> - NFS version 3 should be used.
+>> (**for the exam, only need to know about NFS client (not NFS server), how to install NFS Client, how to list NFS exports shared by NFS server & how to mount them - that's it**)</span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
+- `yum install "Network File System Client"` - to install NFS client
+- `showmount -e <insert NFS server hostname>` - to discover NFS exports (ex: `showmount -e server2`)
+- `mkdir /share` - to create mounting point / directory
+- `mount -o nfsvers=3 <nfs server hostname>:/nfsshare/share` - (`-o` option to specify NFS version) to mount NFS export w/ NFSv3 to test if it works (ex: `mount -o nfsver=3 server2:/nfsshare/share`) (**make sure to list the entire path for File System b/c it's not present on local system, it's present on the remote NFS server**)
+- `umount /share` - unmounting NFS export
+- `vi /etc/fstab` - mounting persistently through `fstab` file
+> `<nfs_server name>:/nfsshare` `/share` `nfs` `_netdev,nfsver=3  0  0`
+> (ex: `server2:/nfsshare` `/share` `nfs` `_netdev,nfsvers=3  0  0`) - (overwrite `dev` option from defaults b/c it's a network device not present on the local system - )
+- `:wq` - write & quit
+- `mount -a` - to mount through `fstab` file
+- `mount` - to display the mounted File Systems
 
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Setting `ugo-rwx` permissions on filesystems
+## Mounting CIFS File Systems through `fstab`
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Task 13. Discover the samba share & mount share "samba" on `/smb1` directory with "smb1" user**:
+>> - Use the password "password" to mount this share.</span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## Creation of symbolic links
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
+- `yum install samba-client cifs-utils` - install required packages for Samba-Client (`cifs` is the File System for the Samba share)
+- `smbclient -L <insert hostname for samba server>` - to discover Samba share (ex: `smbclient -L server2`) (`-L` = get a list of shares on a host)
+- `mkdir /smb1` - to create mount directory
+- `mount -o username=smb1 //<insert hostname>/samba /smb1` - (**for samba shares you always need to use a username while mounting the share & samba share always starts with `//` - don't forget!**) to mount the samba share to test if it works
+- Enter the Samba user password: ********
+- `umount /smb1` - unmount the Samba share
+- `vi /etc/fstab` - make entry in `fstab` file to make mount persistent
+> `//<insert hostname>/samba`(sharename - complete path) `/smb1` `cifs` `_netdev,username=smb1,password=password  0  0`
+> (ex: `//server2/samba` `/smb1` `cifs` `_netdev,username=smb1,password=password  0  0`)
+- `:wq` - write & quit
+- `mount -a` - to mount through `fstab` file
+- `mount` - to verify the mounted file systems
 
 **TODO**:
 - [ ]  Review Task 1.)
