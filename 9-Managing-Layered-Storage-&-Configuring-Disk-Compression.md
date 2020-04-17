@@ -65,8 +65,6 @@ Commands:
 - `stratis pool destroy <pool_name>` - to delete stratis storage pool
 - `man stratis` - to check manual page stratis 
 
-- **NOTE** - to delete the stratis pool you need to delete all File Systems first & only then will you be allowed to delete the pool.
-
 ## Creating Stratis File System Snapshots
 
 ---
