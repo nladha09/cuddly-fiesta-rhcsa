@@ -41,8 +41,8 @@ Commands:
 - `stratis filesystem list` - to list Stratis File Systems
 - `mkdir /data /logs` - to create the mount points
 - `vi /etc/fstab` - to create entries for File Systems in `fstab` for persistent mount
->> `/stratis/firstpool/data` `/data` `xfs` `defaults  0  0`
->> `/stratis/firstpool/logs` `/logs` `xfs` `defaults  0  0`
+> - `/stratis/firstpool/data` `/data` `xfs` `defaults  0  0`
+> - `/stratis/firstpool/logs` `/logs` `xfs` `defaults  0  0`
 >> `:wq`
 - `mount -a` - to mount the File Systems through `fstab`
 - `df -h` - 
