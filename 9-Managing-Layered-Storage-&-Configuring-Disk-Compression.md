@@ -43,7 +43,7 @@ Commands:
 - `vi /etc/fstab` - to create entries for File Systems in `fstab` for persistent mount
 > - `/stratis/firstpool/data` `/data` `xfs` `defaults  0  0`
 > - `/stratis/firstpool/logs` `/logs` `xfs` `defaults  0  0`
->> `:wq`
+> - `:wq`
 - `mount -a` - to mount the File Systems through `fstab`
 - `df -h` - 
 - `man stratis` - to check the manual page for stratis
