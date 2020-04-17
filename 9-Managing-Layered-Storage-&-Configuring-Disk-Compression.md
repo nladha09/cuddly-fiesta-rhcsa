@@ -100,38 +100,56 @@ Commands:
 
 ---
 
+![virtual-data-optimizer](images/virtual-data-optimizer.jpg)
 
+![vdo-solution-cli](images/vdo-solution-cli.jpg)
 
-## NEW
-
----
-
-> <span style="font-family:courier new">**Task 2. **:</span>
-
-Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
-
-![hostnamectl](images/hostnamectl.jpg)
-
-
-## NEW
+## Creating VDO Volume w/ specific slab size
 
 ---
 
-> <span style="font-family:courier new">**Task 2. **:</span>
+> <span style="font-family:courier new">**Task 5. Create VDO volume with name `vdo1`**:
+>> - Physical size of VDO device must be 5 GiB & Slab Size should be 128 M.
+>> - Set the logical size 10 times (50 GiB) the size of physical block device (assuming container storage).
+>> - Make sure compression & deduplication are enabled on the VDO device (default behavior) & logs are sent to syslog (sent here by default - could specify with `--logfile <pathname>`</span>
 
 Commands:
-- `` - 
-- `` - 
-- `` - 
-- `` - 
+- `yum install vdo kmod-kvdo` - to install VDO (two packages)
+- `systemctl status vdo.service` - to check the status of VDO service (should be enables; do not need to activate, will start automatically when we create the vdo device)
+- `fdisk /dev/sda` - to create a partition of 5 GiB of size
+> `n`
+> press "enter"
+> `+5G`
+> `:wq`
+- `partprobe` - to inform kernel of this partition
+- `vdo create --name vdo1 --vdoSlabSize 128M --vdoLogicalSize 50G --device /dev/sda8` - to create a VDO volume
+- `vdo list` - to list VDO devices
+- `vdostats --human-readable` - to monitor VDO devices
+- `vdo printConfigFile` - to print VDO configurations - you can also check `/etc/vdo.conf.yml` for VDO configurations.
+- `man vdo` - to check manual page
+- `vdo -h` - go through these as they will be helpful for exam
 
-![hostnamectl](images/hostnamectl.jpg)
+## Mounting VDO Volume
 
+---
+
+> <span style="font-family:courier new">**Task 6. Create `xfs` File System on VDO volume `vdo1` & mount vdo volume on `/vdo1` directory**:
+>> - Disable the compression on the device.
+>> - Change the Bio Threads count to 2.
+>> - VDO logs should be sent to `/root/vdo1_logs` file.</span>
+
+Commands:
+- `mkfs -t xfs -K /dev/mapper/vdo1` - to create `xfs` File System (`-K`)
+- `vdo printConfigFile` - print vdo configurations
+- `vdo disableCompression --name vdo1` - to disable compression
+- `touch /root/vdo1_logs` - create new log file
+- `vdo modify --name vdo1 --logfile /root/vdo1_logs --vdoBioThreads 2` - to set the non-default log file & change the Bio Threads count
+- `vdo print ConfigFile` - to print VDO configurations again
+- `vi /etc/fstab` - write to `fstab` file
+> `/dev/mapper/vdo1` `/vdo1` `xfs` `defaults,_netdev,x-systemd.requires=vdo.service  0  0` (view man page for mount for more details on this option)
+> `:wq`
+- `mount -a` - to mount the File System through `fstab`
+- `mount` - to verify the mounted File System
 
 **TODO**:
-- [ ]  test
-- [ ]  test
+- [ ]  review all the things in this section
