@@ -325,6 +325,8 @@ Commands:
 - `mount -a` - to mount through `fstab` file
 - `mount` - to verify the mounted file systems
 
+
+
 **TODO**:
 - [ ]  Review Task 1.)
 - [ ]  configuring & mounting LVMs Task 4.)
