@@ -11,7 +11,7 @@ Commands:
 - `systemctl status sshd` - to check the status of SSH service
 - `adduser riya` - add user riya if not already added - (on the **remote** machine - user doesn't need to exist on local machine)
 - `passwd riya` - to set the password for riya so user can log in (again, this needs to be done at least only on the **remote** machine)
-- `ssh riya@ipaserver.example.com` - to establish ssh connection
+- `ssh riya@server2` - to establish ssh connection
 - Enter password for riya: ****** (ex: password)
 - `hostname` - to verify "riya" is connected to "server2"
 
