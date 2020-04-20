@@ -176,7 +176,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 14. Create direcotry "/test" & set the user ownership to riya & Group ownership to sys.**:
+> <span style="font-family:courier new">**Task 14. Create directory "/test" & set the user ownership to riya & Group ownership to sys.**:
 >> - Remove all the premissions for others in this directory.
 >> - Give full permissions at group level</span>
 
