@@ -24,7 +24,14 @@ RHEL 8 looks towards fedora to formulate RHEL - supported by Red Hat and through
 
 - displaying contents of a file - `cat /etc/fstab` - `tac` is the opposite and shows the bottom of a file. `head` - will show first 10 lines, similiarly `tail -40 /etc/services` will show you the last 40 lines
 
-- `wc -l /etc/services` (counts the lines in a file)
+- `wc -l /etc/services` ( `wc` = word count - `-l` counts the lines in a file)
 
--
+- double tab to see options `useradd --` "Tab" + "Tab"
 
+- argument history - "Alt" + "." - similiar to up arrow
+
+- `authconfig \` - don't have to type in the `\` every option is on a different line.
+
+- `history` - shows pervious commands - can recall / re-execute with `!` (ex: `!13` `!!` recalls the last one). CTRL + "R" recalls a particular cmd & then "Tab" 
+
+![edit-cli](../images/edit-cli.JPG)
