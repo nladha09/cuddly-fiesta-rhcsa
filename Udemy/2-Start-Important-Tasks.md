@@ -20,7 +20,7 @@ Procedure (Building VM):
 - Before starting up the VM (this is a VMware specific step) go to "Edit virtual machine settings" delete the "SCSI" disk type and "Create a new virtual disk" select either "IDE" or "SATA" (use IDE & follow steps for disk space sizing).
 - Also, before starting up the VM make sure the boot load order has "IDE" on top of "CD" or you'll encounter a loop-de-loop of the install. (see below image)
 
-![boot-load-order](images/boot-load-order.jpg)
+![boot-load-order](../images/boot-load-order.jpg)
 
 - Click on "Power on this virtual machine" - if you run into the below error:
 > VMware Workstation and Device/Credential Guard are not compatible. VMware Workstation can be run after disabling Device/Credential Guard. Please visit http://www.vmware.com/go/turnoff_CG_DG for more details.
@@ -35,7 +35,7 @@ Procedure (RHEL 8 Installation set up):
      - Disk is already selected. Select "Custom" storage configuration to use manual partitioning.
      - Choose "Standard Partition" for the root file system ("/"), "/home", & "/boot".
 
-![disk-setup](images/disk-setup.jpg)
+![disk-setup](../images/disk-setup.jpg)
 
 - Now click on "Software Selection" and select "Workstation" (not "Server with GUI")
 - & now click "Begin Installation" - we will configure Network settings later on...
@@ -54,7 +54,7 @@ Procedure:
 - Find the line starting w/ "linux" & enter the "rd.break" at the end.
 - Press CTRL + "x" to start / boot the system with these options. System enters in single-user mode.
 
-![rd.break](images/rd.break.jpg)
+![rd.break](../images/rd.break.jpg)
 
 - At this stage, root file system ("/") is mounted in read-only mode to /sysroot & must be remounted with r/w permissions
      - `mount -o remount, rw /sysroot` - to mount the root file system ("/")with r/w permissions
@@ -66,7 +66,7 @@ Procedure:
      - `exit` - exit out of root file system ("/")
      - `exit` - exit out of /sysroot
 
-![new-root-pw](images/new-root-pw.jpg)
+![new-root-pw](../images/new-root-pw.jpg)
 
 ## Set the SELinux to Enforcing mode
 
@@ -80,7 +80,7 @@ Commands:
 - `:wq` or `:q` if no changes made (mine was already showing SELinux as `enforcing`)
 - `systemctl reboot` - restart the system
 
-![selinux-enforcing](images/selinux-enforcing.jpg)
+![selinux-enforcing](../images/selinux-enforcing.jpg)
 
 ## Verifying SELinux status
 

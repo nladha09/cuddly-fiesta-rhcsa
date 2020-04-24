@@ -7,7 +7,7 @@
 > <span style="font-family:courier new">**Task 1. Execute command to change system to run in "Graphical" target. Make this setting persistent & system should boot in same target on next reboot**:</span>
 
 
-![linux-config-pic-run-levels](images/linux-config-pic-run-levels.jpg)
+![linux-config-pic-run-levels](../images/linux-config-pic-run-levels.jpg)
 
 
 Commands:
@@ -30,7 +30,7 @@ Commands:
 - `hostnamectl set-hostname <insert hostname>` - to assign new hostname to machine [example: `hostnamectl set-hostname system.example.com`].
 - `logout` - to logout and log back in to see the updated hostname.
 
-![hostnamectl](images/hostnamectl.jpg)
+![hostnamectl](../images/hostnamectl.jpg)
 
 ## Configuring static IPv4 address on Interface (RHEL 8)
 
@@ -60,10 +60,10 @@ Commands:
 - `cat /etc/resolv.conf` - to verify DNS IP address.
 - `route -n` or `ip route show` - verify default gateway.
 
-![ipv4.addresses-ipv4.gateway-ipv4.dns-ipv4.method](images/ipv4.addresses-ipv4.gateway-ipv4.dns-ipv4.method.jpg)
+![ipv4.addresses-ipv4.gateway-ipv4.dns-ipv4.method](../images/ipv4.addresses-ipv4.gateway-ipv4.dns-ipv4.method.jpg)
 
 
-![etc-sysconfig-network-scripts](images/etc-sysconfig-network-scripts.jpg)
+![etc-sysconfig-network-scripts](../images/etc-sysconfig-network-scripts.jpg)
 
 
 ## Yum repositories BaseOS & AppStream in (RHEL 8)
@@ -94,9 +94,9 @@ Commands (related to Modules):
 > <span style="font-family:courier new">**~~Task 4. Create local yum (dnf) repositories BaseOS & AppStream at location /root/BaseOS & /root/AppStream on system.~~**:
 >> - ~~Repo should be created with yum group information to use yum groups~~</span>
 
-![local-repo-baseos](images/local-repo-baseos.jpg)
+![local-repo-baseos](../images/local-repo-baseos.jpg)
 
-![local-repo-appstream](images/local-repo-appstream.jpg)
+![local-repo-appstream](../images/local-repo-appstream.jpg)
 
 ~~Commands~~ (**DISREGARD THIS BIT**):
 - ~~`yum repolist` - to list the repositories configured for system~~
@@ -111,7 +111,7 @@ Commands (related to Modules):
 > - ~~`man createrepo_c` - manual page for createrepo_c~~
 >    - ~~**Note** - `createrepo_c` is not available by default; you need to install the package before you can use it: `yum install createrepo_c`~~
 
-![repo-metadata-baseos](images/repo-metadata-baseos.jpg)
+![repo-metadata-baseos](../images/repo-metadata-baseos.jpg)
 
 ---
 
@@ -171,7 +171,7 @@ Commands:
 - `crontab -u riya -l` - list all the crontab entries for riya
 - `crontab --help` - crontab help option
 
-![crontab-fields](images/crontab-fields.jpg)
+![crontab-fields](../images/crontab-fields.jpg)
 
 ## Scheduling cron jobs as user other than root
 
@@ -223,7 +223,7 @@ Commands:
 - `systemctl start autofs` - to start the `autofs` service
 - `systemctl enable autofs` - to configure the service to start at boot
 
-![yum-install-autofs-start-enable](images/yum-install-autofs-start-enable.jpg)
+![yum-install-autofs-start-enable](../images/yum-install-autofs-start-enable.jpg)
 
 ## Configuring System to use time sources
 
@@ -243,7 +243,7 @@ Configuration file:
 - `systemctl restart chronyd` - restart `chronyd`
 - `chronyc sources` or `chronyc sources -v` - to verify the NTP server & more detailed view
 
-![chronyc-sources](images/chronyc-sources.jpg)
+![chronyc-sources](../images/chronyc-sources.jpg)
 
 
 ## Working with package Module streams (RHEL 8)
@@ -279,7 +279,7 @@ definitions:
 - **rhgb** - Redhat Graphical Boot - This is a GUI Mode booting screen w/ most of the info hidden while user sees the rotating icon spinning & only brief info.
 - **quiet** - hides majority of boot messages before rhgb starts. There are supposed to make the common user more comfortable.
 
-![remove-rhgb-quiet](images/remove-rhgb-quiet.jpg)
+![remove-rhgb-quiet](../images/remove-rhgb-quiet.jpg)
 
 **TODO**:
 - [x] ~~for practice-env question: Thank you for creating this practice env; it saves a lot of time and learned a bit about Ansible & Vagrant in implementing the set up. Will `systemctl isolate graphical.target` or `systemctl set-default graphical.target` not work on the environments b/c the initial creation was not "server w/ GUI"?~~

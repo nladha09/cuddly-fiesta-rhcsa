@@ -4,7 +4,7 @@
 
 ---
 
-![stratis-storage](images/stratis-storage.jpg)
+![stratis-storage](../images/stratis-storage.jpg)
 
 - Stratis is a Linux local storage management tool that aims to enable easy use of advanced storage features such as:
     - thin provisioning
@@ -100,9 +100,9 @@ Commands:
 
 ---
 
-![virtual-data-optimizer](images/virtual-data-optimizer.jpg)
+![virtual-data-optimizer](../images/virtual-data-optimizer.jpg)
 
-![vdo-solution-cli](images/vdo-solution-cli.jpg)
+![vdo-solution-cli](../images/vdo-solution-cli.jpg)
 
 ## Creating VDO Volume w/ specific slab size
 

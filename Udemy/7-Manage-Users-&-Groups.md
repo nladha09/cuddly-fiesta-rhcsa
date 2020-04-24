@@ -21,7 +21,7 @@ CREATE_MAIL_SPOOL=yes #boolean - user mailbox will be created if set to "yes
 
 The `login.defs` file which is present under `/etc/login.defs` provides the default config info for several user account parameters. ("Password Aging Controls" are important for exam)
 
-![login.defs-password](images/login.defs-password.jpg)
+![login.defs-password](../images/login.defs-password.jpg)
 
 ## Verifying Different Settings of User Account
 
@@ -159,7 +159,7 @@ Commands:
 - `su - ldap` - switch to user ldap
 - `pwd` - ldap home directory should be shown (`/home/ldapuser/ldap`)
 
-![etc-auto.master](images/etc-auto.master.jpg)
+![etc-auto.master](../images/etc-auto.master.jpg)
 
 ## Automount for Home Directories of multiple LDAP Users using wild cards
 
