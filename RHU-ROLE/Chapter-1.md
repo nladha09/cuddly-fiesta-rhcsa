@@ -35,3 +35,38 @@ RHEL 8 looks towards fedora to formulate RHEL - supported by Red Hat and through
 - `history` - shows pervious commands - can recall / re-execute with `!` (ex: `!13` `!!` recalls the last one). CTRL + "R" recalls a particular cmd & then "Tab" 
 
 ![edit-cli](../images/edit-cli.JPG)
+
+- everything starts at the `root` `home` is found at the `/` of the File System
+
+- `bin` (contains executables or binaries used by all users) & `sbin` (system binaries - used only by root user)
+
+- `usr` stands for "unix system resources"
+
+- `dev` contains device files
+
+- `etc` extended text configuration files (where do I configure ssh...etc.)
+
+- `run` directory contains runtime data - recreated on re-boot - `var` data survives reboot (log files, database data)
+
+- `/tmp` - files that aren't access within 10 days will be purged
+
+---
+
+- Absolute paths (full path - will always begin with a "/") & Relative paths (relative to parent position - will never begin with a leading "/")
+    - `mkdir ./foo` (current directory) vs `mkdir .foo` (hidden file)
+
+- `cp -r /user/share/doc/unzip .` - copy recursively to current directory
+
+- Files are identified by Index Node (inode) - keeps track of permissions, ownerships, Date & Time stamps & paths to data on FS (except for file name)
+    - `ln file1 file2` - same file (same inode) - `ls -li` to view inode
+    - `ln -s file3 file4` - soft / symbolic link (different inode) - the last argument is the thing that we want to create
+
+- `ls ?file` - match to any character following "file"
+
+- `ls [ace]*` - match any of these characters & don't care what comes afterwards
+    - `ls [!ace]*` - the opposite (not)
+
+- `echo {Sun,Mon,Tues,Wednes}day.log` - really quick way to create multiple files - brace expansion - can combine various braces.
+
+- create variables with caps - {FIRST_NAME}=Noreen - to return `echo ${FIRST_NAME}` - can use absolute values with curly braces (boundaries) - good common practice to use curly braces around vars.
+
