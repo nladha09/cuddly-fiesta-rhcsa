@@ -70,3 +70,14 @@ RHEL 8 looks towards fedora to formulate RHEL - supported by Red Hat and through
 
 - create variables with caps - {FIRST_NAME}=Noreen - to return `echo ${FIRST_NAME}` - can use absolute values with curly braces (boundaries) - good common practice to use curly braces around vars.
 
+- reading manual pages - `man man` `man -K cron`
+    - to invoke a search, use `/` --- (ex: `/examples`)
+    - `export LESS='-X'` (**don't clear man page** - but this won't persist in this way)
+    - `d` to scroll down page; `u` to scroll up
+    - `whatis` `whereis` (displays file location) - 
+
+- `--` option removes the item following the double dash as an option (ex: `rm -- -foo`)
+
+- `evince` - document viewer for PDF...etc.
+
+
