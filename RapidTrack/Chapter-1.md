@@ -63,6 +63,19 @@
 
 - pirate syntax `(/.*)?`
 
-- creating a rule - `semanage fcontext -a -t httpd_sys_content_t `/virtual(/.*)?` (`-a` = add; `-t` = type) --- `restorecon -RFvv /virtual` (`-R` = recursive; `-vv` = verbose)
+- creating a rule - `semanage fcontext -a -t httpd_sys_content_t `/virtual(/.*)?` (`-a` = add; `-t` = type) --- `restorecon -RFv /virtual` (`-R` = recursive; `-v` = verbose)
 
 - man -k 'selinux' = keyword lookup
+
+---
+
+## Monitoring & Managing Linux Processes
+
+- `kill -l` - to list all kill commands - `kill 5194` don't get in the habit of `kill -9 5199` b/c it doesn't clean up after stopped. `kill -15 5199` to kill gracefully
+
+- `uptime` - shows load average (over the past 1, 5, 15 minutes)
+
+- `lscpu` - help determine how many CPUs a system has
+
+- `top` - constantly updating; shows processes
+
