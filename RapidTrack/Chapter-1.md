@@ -79,3 +79,24 @@
 
 - `top` - constantly updating; shows processes
 
+---
+
+## Influencing Process Scheduling
+
+- The higher the nice value the nicer it is to other processes (lower priority)
+
+- Only privileged users can make something less nice (use more CPU) so use something like `sudo renice -n 4130`
+
+---
+
+## Installing & Updating Software Packages
+
+- `yum remove` does not do a complete uninstall of the package you just installed; won't remove all the dependencies that it installed at that same time. Only remove minimum that we have to.
+
+- `yum group list` - `yum group install` - easier to do w/ one command & updates as a group instead of individual packages.
+     - `sudo yum history` - `sudo yum history undo 5`
+
+## Enabling Yum Software
+
+- ![rpm--import-URL](../images/rpm--import-URL.JPG)
+
