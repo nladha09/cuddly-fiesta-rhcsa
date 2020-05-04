@@ -100,3 +100,14 @@
 
 - ![rpm--import-URL](../images/rpm--import-URL.JPG)
 
+# Chapter 3
+
+## Manging Basic Storage | Mounting & Unmounting File Systems
+
+---
+
+- if writes haven't been written back to the device and you just pulled it out and it didn't get finished you're gonna have corrupted data
+
+- MBR = you can have upto (4) primary partitions the rest would be known as extended partitions & you can make logical partitions inside that. 
+
+- GPT = capability for more (limit is ~64?); have to wipe beginning and the end of the disk. 
