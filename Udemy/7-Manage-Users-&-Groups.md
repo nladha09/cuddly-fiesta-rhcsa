@@ -77,8 +77,9 @@ Commands:
 - `chown lara:lara /lara/private` - to set User & Group Owner as lara (instead of `root` on this directory
 - `chmod 700 /lara/private` - you can still see that Users & Groups still have access to this directory, but only lara should have access to it; run this cmd to restrict the access to lara for her home directory
 - `passwd lara` - to set the password for user lara
-- chage lara`` - to set the maximum password age & password change after first login
+- `chage lara` - to set the maximum password age & password change after first login
 - `cat /etc/shadow` - verify max pw age & prompt for pw change upon login
+- `chage -d 0 [username]` - force user to set password upon next login
 
 Related files:
 - `/etc/passwd` - contains the user account information (i.e. login name, home directory, UID, GID, Shell
