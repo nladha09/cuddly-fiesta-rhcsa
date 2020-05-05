@@ -190,13 +190,15 @@ Commands:
 
 --- different plug-ins are defined below ---
 
-- `[cpu]` 
-- `type=cpu` 
-- `governor=powersave` 
-- `[my_sysctl]` 
-- `type=sysctl` 
-- `vm.swappiness=40` 
-- `:wq` 
+```bash
+[cpu]
+type=cpu
+governor=powersave
+[my_sysctl]
+type=sysctl
+vm.swappiness=40
+```
+- `:wq`
 
 - `tuned-adm profile myprof` - activating customized `tuned` profile `myprof`
 - `systemctl restart tuned` - restarting `tuned` service to make the changes affective.
