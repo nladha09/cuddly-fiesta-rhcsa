@@ -50,19 +50,38 @@ Commands:
 - `fdisk -l` - view disk info(s)
 - `fdisk /dev/sda` - to create partition (we will create an extended partition - (**always provide disk name, not partition name**)
 ---
-- _First input_: `n` (add new partition - **always create an "extended" partition in case there are already "3" primary; you won't be able to create another partition**), _Second input_: `e` ("extended"), selected partition (`4` in this example) & then press "Enter" twice (to assign remaining space for Logical partitions)
-- _Third input_: `n` & press "Enter" (default first sector), Fourth input: `+2G` (the `+` is important), `wq` (to write & quit)
+#### creating extended partition with remaining space (no size specified)
+
+- _First input_: `n` (add new partition - **always create an "extended" partition in case there are already "3" primary; you won't be able to create another partition**)
+- _Second input_: `e` ("extended"), selected partition (`selected partition 4` in this example) & then press "Enter" twice (to assign remaining space for Logical partitions)
+- should see "Partition 4 of type Extended and of size [whatev] GiB is set"
+
+#### creating logical partition under this
+
+- _Third input_: `n` adding logical partition (`adding logical partition 5` in this example) & press "Enter" (first sector is always default)
+- _Fourth input_: `+2G` (the `+` is important), `wq` (to write & quit)
+- should see "Partition 5 of type Linux and of size [2] GiB is set"
+
 ---
 - `cat /proc/partitions` - to view partitions (kernel is not aware of the partitions just created)
 - `partprobe` - to make kernel aware of this partition
 - `cat /proc/partitions` - to view partitions (now you can see addt'l partitions)
 ---
-- `mkfs -t xfs -f /dev/sda5` - to create xfs File System on partition (use Logical partition, not extended partition) - can use `-f` option in case fs on some partition already exists.
+
+#### creating file system on logical partition
+
+- `mkfs -t xfs -f /dev/sda5` - to create xfs File System on partition (use **Logical partition**, not extended partition) - can use `-f` option in case fs on some partition already exists.
 - `mkdir /partition` - to create the mount directory
+
+---
 - ~~`mount /dev/sda5 /partition/` - to mount partition on directory `/partition`~~
 - ~~`df -h` - to view mounted (not persistent mount)~~
 - ~~`mount` - to check the mounted File System~~
 - ~~`lsblk` - to list block devices~~
+---
+
+#### mounting logical partition on `/partition` directory
+
 - `vi /etc/fstab` - on bottom, add `/dev/sda5` (device name) & `/partition` (mount directory) & `xfs` (file system) & `defaults 0 0` (this is not important for exam) --- (**if you make a mistake in `fstab` `mount` will let you know; you must `umount /partition/` before mounting w/ `fstab` file**)
 - `mount -a` - to mount & `mount` command verifies mount
 
@@ -78,9 +97,10 @@ Commands:
 
 Commands:
 - `fdisk /dev/sda` - to create partition (we will create a logical partition)
-- _First input_: `n`, press "Enter" (default is first sector), _Second input_: `+1G`, `wq` (to write & quit)
+- _First input_: `n`, press "Enter" (first sector is always default)
+- _Second input_: `+1G` (define size on last sector), `wq` (to write & quit)
 - `partprobe` - to inform kernel about this partition
-- `mkfs -t vfat /dev/sda6` - to create vfat File System, on partition (`-t` = file system type)
+- `mkfs -t vfat /dev/sda6` - to create vfat File System, on partition (`-t` = file system type) (ran into issues trying to create vfat FS - created xfs instead)
 - `mkdir /fat` - to create the mount directory
 - ~~`mount -o ro /dev/sda6 /fat` - to mount partition on directory `/fat`~~
 - ~~`df -h` or `mount` - to check the mounted File System~~
@@ -106,10 +126,10 @@ Commands:
 - `partprobe` - to inform kernel about this partition
 - `cat /proc/partition` to verify
 ---
-- `mkswap /dev/sda7` - to configure partition as SWAP
-- `vi /etc/fstab` - 
+- `mkswap /dev/sda7` - to configure partition as SWAP (don't need to configure any file system for swap)
+- `vi /etc/fstab` - **no mount point - no file system for swap**
 > `/dev/sda7` `swap` `swap` `defaults 0 0` (make entry in `fstab` file)
-- `swapon -a` - to enable / activate SWAP as per entry in `fstab` file
+- `swapon -a` - to enable / activate SWAP as per entry in `fstab` file (no mount needed)
 - `free -m` - to verify added SWAP
 - `swapon --help` - man page
 
@@ -122,19 +142,38 @@ Commands:
 >> - Mount this on `/log_vol` directory & mount should be persistent.</span>
 
 Commands:
+#### create logical partition
+
 - `fdisk /dev/sda` - to create partition (we will create logical partition)
 - _First input_: `n`, press "Enter", _Second input_: `+300M`, (*can press `l` to list all partition types*) _Third input_: `t`,(**to change partition type**) press "Enter" (for default partition), _Fourth input_: `8e` (hex code for Linux LVM), `wq` (to write & quit)
 - `partprobe` - to inform the kernel about this partition
-- `pvcreate /dev/sda8` - to create physical volume
+
+#### create physical volume
+
+- `pvcreate /dev/sda8` - to create physical volume on this partition
+
+#### create volume group
+
 - `vgcreate <insert vg_group name> /dev/sda8` - to create volume group (ex: `vg_group name` = "vg_group" per task)
+
+#### create logical volume 
+
 - `lvcreate -n <insert lv_volume name> -L 200M vg_group` - to create logical volume on volume group (`-n` = LogicalVolume name; `-L` = LogicalVolume size) (ex: `lv_volume name` = "lv_volume" per task)
 - `lvdisplay` - for more details - (**important to know `LV Path` b/c we are going to use this volume to configure the File System & for mounting purposes**)
+
+#### create File System for Logical Volume
+
 - `mkfs -t ext4 /dev/vg_group/lv_volume` - to create ext4 File System for logical volume
 - `mkdir /log_vol` - to create mount directory / point
+
+---
 - ~~`mount /dev/vg_group/lv_volume /log_vol` - to mount logical volume on directory `/vol_log` - (mount volume then path for the volume, then mount point)~~
 - ~~`mount` - to check the mounted File System~~
 - ~~`lsblk` - to list block devices~~
 - ~~`umount /log_vol` - **must unmount prior to executing `mount -a`**~~
+---
+
+#### Mountinggg time
 - `vi /etc/fstab` - 
 > `/dev/vg_group/lv_volume` (volume group name) `/log_vol` (mount point) `ext4` (file system type) `defaults 0  0` (make entry in `fstab` file)
 - `mount -a` - to mount persistently through `fstab` file
@@ -149,21 +188,41 @@ Commands:
 >> - Use UUID (universal unique identifier) to mount this.</span>
 
 Commands:
-- `` - to create partition (we will create logical partition)
-- _First input_: `n`, press "Enter", _Second input_: `+400M`, _Third input_: `t`, press "Enter" (for default partition), _Fourth input_: `8e` (change to Linux LVM), `wq` (to write & quit)
+#### create logical partition
+
+- `fdisk /dev/sda` - to create partition (we will create logical partition)
+- _First input_: `n`, press "Enter", _Second input_: `+400M` (b/c 20 * 16 = 320) (logical volume) - need more than this to support logical volume), _Third input_: `t`, press "Enter" (for default partition), _Fourth input_: `8e` (change to Linux LVM), `wq` (to write & quit)
 - `partprobe` - to inform kernel about this partition
+
+#### create physical volume
+
 - `pvcreate /dev/sda9` - to create physical volume
+
+#### create volume group
+
 - `vgcreate -s 16M group /dev/sda9` - (`-s` = physicalextentsize) to create volume group with PE size of 16 MiB
 - `vgcreate --help` - to see different options
+
+#### create logical volume
+
 - `lvcreate -n volume -l 20 group` - (`-n` = LogicalVolume name; `-l` = LogicalExtents Number) to create logical volume on volume group using 20 PE's (LV size = 16 * 20 = 320 MiB)
-- `mkfs -t ext4 /dev/home/volume` - to create ext4 File System for logical volume
+
+#### create File System
+
+- `mkfs -t ext4 /dev/group/volume` - to create ext4 File System for logical volume
 - `mkdir /volume` - to create mount directory
+
+---
 - ~~`mount /dev/home/volume /volume` - to mount logical volume on directory `/volume`~~
 - ~~`mount` - to check the mounted File System~~
-- `blkid` - to grab UUID
+---
+
+#### mountinggg
+
+- `blkid` - to grab UUID - even better `blkid | grep ^/dev/mapper/group-volume >> /etc/fstab`
 - `vi /etc/fstab`
 > `UUID="1234abc..."`(UUID) `/volume` `ext4` `defaults 0  0` (make entry in `fstab`)
-- `umount /volume` - unmount prior to executing `mount -a`
+- ~~`umount /volume` - unmount prior to executing `mount -a`~~
 - `mount -a` - to mount persistently through `fstab` file
 
 ## Configuring Logical Volume using 100% free size Volume Group
@@ -175,14 +234,28 @@ Commands:
 >> - Create `ext4` file system on thie volume.</span>
 
 Commands:
+#### create logical partition
+
 - `fdisk /dev/sda` - to create partition (we will create logical partition)
 - _First input_: `n`, press "Enter", _Second input_: `+1G`, _Third input_: `t`, press "Enter" (for default partition), _Fourth input_: `8e`, `wq` (to write and quit)
 - `partprobe` - to make kernel aware of partition
+
+#### create physical volume
+
 - `pvcreate /dev/sda11` - to create physical volume
+
+#### create volume group
+
 - `vgcreate <insert vg_group name> /dev/sda11` - to create volume group (ex: "vgroup" per task)
+
+#### create logical volume
+
 - `lvcreate --help` - to see different options
 - `lvcreate -n <insert lvm name> -l 100%FREE <insert vg_group name>` - to create logical volume using all free space on volume group (ex: "lvm" = LVM name & volume group name = "vgroup" per task)
 - `lvdisplay` - to view changes
+
+#### format w/ File System
+
 - `mkfs -t ext4 /dev/vgroup/lvm` - to create `ext4` File System for logical volume
 
 ## Extend LVMs along with File Systems
@@ -208,13 +281,28 @@ Commands:
 Commands:
 - `lvdisplay` - check logical volume "lvm"
 - `vgdisplay <insert name of vg_group>` - to check the size of the Volume Group (can't extend size of Logical Volume beyond the Volume Group) (ex: `vgdisplay vgroup`)
+
+#### create logical partition
+
 - `fdisk /dev/sda` - to create partition (we will create logical partition)
 - _First input_: `n`, press "Enter", _Second input_: `+2G`, _Third input_: `t`, press "Enter", _Fourth input_: `8e`, `wq` (to write & quit)
 - `partprobe` - to make kernel aware of partition
+
+#### create physical volume
+
 - `pvcreate /dev/sda12` - to create physical volume
+
+#### create volume group
+
 - `vgextend --help` - view options for `vgextend`
 - `vgextend <insert vg_group name> /dev/sda12` - to extend volume group (ex: volume group name = "vgroup")
-- `lvextend -r -L +1G /dev/<insert vg_group name>/<insert LVM name>` - to extend the logical volume by 1 GiB (ex: `lvextend -r -L +1G /dev/vgroup/lvm)
+
+#### logical volume extend
+
+- `lvextend -r -L +1G /dev/<insert vg_group name>/<insert LVM name>` - to extend the logical volume by 1 GiB (ex: `lvextend -r -L +1G /dev/vgroup/lvm) - `-r` is **very important to make sure to "resizefs"**
+
+#### create File System for logical volume
+
 - `mkfs -t ext4 /dev/<insert vg_group name>/<insert LVM name>` - to create `ext4` File System for logical volume (ex: `mkfs -t ext4 /dev/vgroup/lvm`)
 
 ## To overwrite existing File System type
@@ -225,9 +313,15 @@ Commands:
 >> - Change the file system to `xfs` & verify same.</span>
 
 Commands:
+
+#### create logical partition
+
 - `fdisk /dev/sda` - to create partition (we will create logical partition)
 - _First input_: `n`, press "Enter" (to select default first sector), _Second input_: `+200M`, `wq` (to write & quit)
 - `partprobe` - to inform kernel about the partition
+
+#### create File System
+
 - `mkfs -t ext4 /dev/sda13` - create `ext4` File System for partition
 - `mkfs -t xfs -f /dev/sda13` - force the File System change to `xfs` (overwrite)
 - `blkid` - to verify
