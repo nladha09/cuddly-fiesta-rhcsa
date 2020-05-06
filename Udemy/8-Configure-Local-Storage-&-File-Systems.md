@@ -62,7 +62,7 @@ Commands:
 - ~~`mount /dev/sda5 /partition/` - to mount partition on directory `/partition`~~
 - ~~`df -h` - to view mounted (not persistent mount)~~
 - ~~`mount` - to check the mounted File System~~
-- `lsblk` - to list block devices
+- ~~`lsblk` - to list block devices~~
 - `vi /etc/fstab` - on bottom, add `/dev/sda5` (device name) & `/partition` (mount directory) & `xfs` (file system) & `defaults 0 0` (this is not important for exam) --- (**if you make a mistake in `fstab` `mount` will let you know; you must `umount /partition/` before mounting w/ `fstab` file**)
 - `mount -a` - to mount & `mount` command verifies mount
 
@@ -82,9 +82,9 @@ Commands:
 - `partprobe` - to inform kernel about this partition
 - `mkfs -t vfat /dev/sda6` - to create vfat File System, on partition (`-t` = file system type)
 - `mkdir /fat` - to create the mount directory
-- `mount -o ro /dev/sda6 /fat` - to mount partition on directory `/fat`
-- `df -h` or `mount` - to check the mounted File System
-- `lsblk` - to list block devices
+- ~~`mount -o ro /dev/sda6 /fat` - to mount partition on directory `/fat`~~
+- ~~`df -h` or `mount` - to check the mounted File System~~
+- ~~`lsblk` - to list block devices~~
 --- 
 mount persistently w/ `fstab` :
 
@@ -131,10 +131,10 @@ Commands:
 - `lvdisplay` - for more details - (**important to know `LV Path` b/c we are going to use this volume to configure the File System & for mounting purposes**)
 - `mkfs -t ext4 /dev/vg_group/lv_volume` - to create ext4 File System for logical volume
 - `mkdir /log_vol` - to create mount directory / point
-- `mount /dev/vg_group/lv_volume /log_vol` - to mount logical volume on directory `/vol_log` - (mount volume then path for the volume, then mount point)
-- `mount` - to check the mounted File System
-- `lsblk` - to list block devices
-- `umount /log_vol` - **must unmount prior to executing `mount -a`**
+- ~~`mount /dev/vg_group/lv_volume /log_vol` - to mount logical volume on directory `/vol_log` - (mount volume then path for the volume, then mount point)~~
+- ~~`mount` - to check the mounted File System~~
+- ~~`lsblk` - to list block devices~~
+- ~~`umount /log_vol` - **must unmount prior to executing `mount -a`**~~
 - `vi /etc/fstab` - 
 > `/dev/vg_group/lv_volume` (volume group name) `/log_vol` (mount point) `ext4` (file system type) `defaults 0  0` (make entry in `fstab` file)
 - `mount -a` - to mount persistently through `fstab` file
@@ -158,8 +158,8 @@ Commands:
 - `lvcreate -n volume -l 20 group` - (`-n` = LogicalVolume name; `-l` = LogicalExtents Number) to create logical volume on volume group using 20 PE's (LV size = 16 * 20 = 320 MiB)
 - `mkfs -t ext4 /dev/home/volume` - to create ext4 File System for logical volume
 - `mkdir /volume` - to create mount directory
-- `mount /dev/home/volume /volume` - to mount logical volume on directory `/volume`
-- `mount` - to check the mounted File System
+- ~~`mount /dev/home/volume /volume` - to mount logical volume on directory `/volume`~~
+- ~~`mount` - to check the mounted File System~~
 - `blkid` - to grab UUID
 - `vi /etc/fstab`
 > `UUID="1234abc..."`(UUID) `/volume` `ext4` `defaults 0  0` (make entry in `fstab`)
