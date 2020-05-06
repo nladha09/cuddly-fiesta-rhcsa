@@ -51,7 +51,7 @@ Commands:
 - `fdisk /dev/sda` - to create partition (we will create an extended partition - (**always provide disk name, not partition name**)
 ---
 - _First input_: `n` (add new partition - **always create an "extended" partition in case there are already "3" primary; you won't be able to create another partition**), _Second input_: `e` ("extended"), selected partition (`4` in this example) & then press "Enter" twice (to assign remaining space for Logical partitions)
-- Third input: `n` & press "Enter" (default first sector), Fourth input: `+2G` (the `+` is important), `wq` (to write & quit)
+- _Third input_: `n` & press "Enter" (default first sector), Fourth input: `+2G` (the `+` is important), `wq` (to write & quit)
 ---
 - `cat /proc/partitions` - to view partitions (kernel is not aware of the partitions just created)
 - `partprobe` - to make kernel aware of this partition
@@ -59,9 +59,9 @@ Commands:
 ---
 - `mkfs -t xfs -f /dev/sda5` - to create xfs File System on partition (use Logical partition, not extended partition) - can use `-f` option in case fs on some partition already exists.
 - `mkdir /partition` - to create the mount directory
-- `mount /dev/sda5 /partition/` - to mount partition on directory `/partition`
-- `df -h` - to view mounted (not persistent mount)
-- `mount` - to check the mounted File System
+- ~~`mount /dev/sda5 /partition/` - to mount partition on directory `/partition`~~
+- ~~`df -h` - to view mounted (not persistent mount)~~
+- ~~`mount` - to check the mounted File System~~
 - `lsblk` - to list block devices
 - `vi /etc/fstab` - on bottom, add `/dev/sda5` (device name) & `/partition` (mount directory) & `xfs` (file system) & `defaults 0 0` (this is not important for exam) --- (**if you make a mistake in `fstab` `mount` will let you know; you must `umount /partition/` before mounting w/ `fstab` file**)
 - `mount -a` - to mount & `mount` command verifies mount
