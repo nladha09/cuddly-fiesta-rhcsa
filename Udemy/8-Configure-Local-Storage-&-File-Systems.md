@@ -5,7 +5,7 @@
 
 ---
 
-- **MBR** (Master Boot Record) - supports up to 15 partitions (probably find this disk in exam)
+- **MBR** (Master Boot Record) - supports up to 15 partitions (**probably find this disk in exam**)
 - **GPT** (GUID Partition Table) - supports 128 partitions
 
 - **Standard Partitions** - partitions of fixed size & size cannot be changed later.
@@ -96,20 +96,27 @@ Commands:
 >> - Mount should be persistent.</span>
 
 Commands:
+
+#### create logical partition
+
 - `fdisk /dev/sda` - to create partition (we will create a logical partition)
 - _First input_: `n`, press "Enter" (first sector is always default)
 - _Second input_: `+1G` (define size on last sector), `wq` (to write & quit)
 - `partprobe` - to inform kernel about this partition
+
+#### create File System
+
 - `mkfs -t vfat /dev/sda6` - to create vfat File System, on partition (`-t` = file system type) (ran into issues trying to create vfat FS - created xfs instead)
-- `mkdir /fat` - to create the mount directory
+
+---
 - ~~`mount -o ro /dev/sda6 /fat` - to mount partition on directory `/fat`~~
 - ~~`df -h` or `mount` - to check the mounted File System~~
 - ~~`lsblk` - to list block devices~~
---- 
-mount persistently w/ `fstab` :
-
----
 - ~~`umount /fat` - unmount and mount persistently through `fstab`~~
+--- 
+#### mount persistently w/ `fstab` :
+
+- `mkdir /fat` - to create the mount directory
 - `vi /etc/fstab` - 
 > `/dev/sda6` `/fat` `vfat` `ro 0 0` (make entry in `fstab` file - `ro` = read-only --- in the exam you will use options `0  0`)
 
@@ -120,16 +127,27 @@ mount persistently w/ `fstab` :
 > <span style="font-family:courier new">**Task 3. Configure & add 1 GiB swap space to your system**:</span>
 
 Commands:
+#### create logical partition
+
 - `fdisk /dev/sda` - to create partition (we will create logical partition)
-- _First input_: `n`, press "Enter" (default is first sector), _Second input_: `+1G`, _Third input_: `t`, press "Enter" (for default partition), _Fourth input_: `82` (hexcode for linux swap), `wq` (write & quit)
+- _First input_: `n`, press "Enter" (default is first sector)
+- _Second input_: `+1G`
+- _Third input_: `t`, press "Enter" (for default partition)
+- _Fourth input_: `82` (hexcode for linux swap), `wq` (write & quit)
 ---
 - `partprobe` - to inform kernel about this partition
 - `cat /proc/partition` to verify
 ---
+
+#### create SWAP :
+
 - `mkswap /dev/sda7` - to configure partition as SWAP (don't need to configure any file system for swap)
+
+#### mount persistently w/ `fstab`
+
 - `vi /etc/fstab` - **no mount point - no file system for swap**
 > `/dev/sda7` `swap` `swap` `defaults 0 0` (make entry in `fstab` file)
-- `swapon -a` - to enable / activate SWAP as per entry in `fstab` file (no mount needed)
+- `swapon -a` - to enable / activate SWAP as per entry in `fstab` file (**no mount needed**)
 - `free -m` - to verify added SWAP
 - `swapon --help` - man page
 
