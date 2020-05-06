@@ -419,7 +419,7 @@ Commands:
 - `mount -a` - to mount through `fstab` file
 - `mount` - to verify the mounted file systems
 
-
+![end-game-lvm](../images/end-game-lvm.jpg)
 
 **TODO**:
 - [ ]  Review Task 1.)
