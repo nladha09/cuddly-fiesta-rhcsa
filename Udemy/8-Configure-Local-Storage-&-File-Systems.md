@@ -89,7 +89,7 @@ Commands:
 mount persistently w/ `fstab` :
 
 ---
-- `umount /fat` - unmount and mount persistently through `fstab`
+- ~~`umount /fat` - unmount and mount persistently through `fstab`~~
 - `vi /etc/fstab` - 
 > `/dev/sda6` `/fat` `vfat` `ro 0 0` (make entry in `fstab` file - `ro` = read-only --- in the exam you will use options `0  0`)
 
