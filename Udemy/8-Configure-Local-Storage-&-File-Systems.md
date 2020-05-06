@@ -326,6 +326,11 @@ Commands:
 - `mkfs -t xfs -f /dev/sda13` - force the File System change to `xfs` (overwrite)
 - `blkid` - to verify
 
+
+## end game LVM display
+![end-game-lvm](../images/end-game-lvm.jpg)
+
+
 ## Configuring Directory for Group Collaboration
 
 ---
@@ -409,9 +414,13 @@ Commands:
 - `yum install samba-client cifs-utils` - install required packages for Samba-Client (`cifs` is the File System for the Samba share)
 - `smbclient -L <insert hostname for samba server>` - to discover Samba share (ex: `smbclient -L server2`) (`-L` = get a list of shares on a host)
 - `mkdir /smb1` - to create mount directory
-- `mount -o username=smb1 //<insert hostname>/samba /smb1` - (**for samba shares you always need to use a username while mounting the share & samba share always starts with `//` - don't forget!**) to mount the samba share to test if it works
-- Enter the Samba user password: ********
-- `umount /smb1` - unmount the Samba share
+
+---
+- ~~`mount -o username=smb1 //<insert hostname>/samba /smb1`~~ - (**for samba shares you always need to use a username while mounting the share & samba share always starts with `//` - don't forget!**) ~~to mount the samba share to test if it works~~
+- ~~Enter the Samba user password: ********~~
+- ~~`umount /smb1` - unmount the Samba share~~
+---
+
 - `vi /etc/fstab` - make entry in `fstab` file to make mount persistent
 > `//<insert hostname>/samba`(sharename - complete path) `/smb1` `cifs` `_netdev,username=smb1,password=password  0  0`
 > (ex: `//server2/samba` `/smb1` `cifs` `_netdev,username=smb1,password=password  0  0`)
@@ -419,7 +428,6 @@ Commands:
 - `mount -a` - to mount through `fstab` file
 - `mount` - to verify the mounted file systems
 
-![end-game-lvm](../images/end-game-lvm.jpg)
 
 **TODO**:
 - [ ]  Review Task 1.)
