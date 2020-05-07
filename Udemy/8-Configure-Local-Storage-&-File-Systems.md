@@ -25,7 +25,7 @@
 - Logical volumes can be extended & reduced depending on the need of time.
 
 ### LVM diagram
-![lvm](images/lvm.jpg)
+![lvm](../../images/lvm.jpg)
 
 #### Steps to configure Disk w/ Logical Volumes:
 
