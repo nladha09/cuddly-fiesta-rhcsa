@@ -349,7 +349,7 @@ Commands:
 
 
 ## end game LVM display
-![end-game-lvm](../images/end-game-lvm.jpg)
+![end-game-lvm](../images/end-game-lvm.JPG)
 
 
 ## Configuring Directory for Group Collaboration
