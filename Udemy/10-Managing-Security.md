@@ -23,7 +23,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 1. Web server (hhtpd) needs to access the files in `/web` directory. Set the correct SELinux context type on `/web` directory to make this possible**:
+> <span style="font-family:courier new">**Task 1. Web server (httpd) needs to access the files in `/web` directory. Set the correct SELinux context type on `/web` directory to make this possible**:
 >> - Restore the SELinux context.
 >> - Changes done should be persistent.</span>
 
@@ -60,7 +60,7 @@ Commands:
 
 > <span style="font-family:courier new">**Task 3. Configure the firewall to accept inbound traffic on 443/tcp port**:
 >> - Changes done should be persistent.
->> - Use fireeall-config for this task.</span>
+>> - Use firewall-config for this task.</span>
 
 Commands:
 - `systemctl status firewalld` - to check the status of `firewalld` service
