@@ -50,7 +50,7 @@ Commands:
 - `firewall-cmd --list-all` - to list all firewall configurations
 - `man firewalld.richlanguage` - man page for firewall rich language (Example 3)
 - `firewall-cmd --add-rich-rule='rule family="ipv4" source address="192.168.122.0/24" service name ="ssh" accept' --permanent` - to add rich rule to accept ssh traffic only from 192.168.122.0/24 network
-- remove ssh service from services list, if you don't remove ssh service, then rich rule configured to accept ssh traffic from 192.168.122.0/24 network only will not be effective. This is due to order in which `firewalld` evaluates the different definitions on firewall. If `firewalld` will find ssh service on services list, it will aloow access irrespective of accessing network & rich rule will be ignored.
+- remove ssh service from services list, if you don't remove ssh service, then rich rule configured to accept ssh traffic from 192.168.122.0/24 network only will not be effective. This is due to order in which `firewalld` evaluates the different definitions on firewall. If `firewalld` will find ssh service on services list, it will allow access irrespective of accessing network & rich rule will be ignored.
 - `firewall-cmd --remove-service=ssh --permanent` - persistent change
 - `firewall-cmd --reload` - to reload the firewall to make the change done in above command to be effective
 - `firewall-cmd --list-all` - to list all firewall configurations & check if newly created rule is now available
