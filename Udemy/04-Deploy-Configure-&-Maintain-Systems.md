@@ -137,7 +137,7 @@ gpgcheck=0
 enabled=1
 
 [AppStream]
-name=AppStream|
+name=AppStream
 baseurl=http://repo.eight.example.com/AppStream
 gpgcheck=0
 enabled=1
