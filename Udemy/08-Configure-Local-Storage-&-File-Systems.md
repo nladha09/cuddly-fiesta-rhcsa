@@ -109,6 +109,7 @@ Commands:
 
 #### create File System
 
+- `yum install dosfstools` - Creates an MS-DOS filesystem inside a partition.
 - `mkfs -t vfat /dev/sda6` - to create vfat File System, on partition (`-t` = file system type) (ran into issues trying to create vfat FS - created xfs instead)
 
 ---
