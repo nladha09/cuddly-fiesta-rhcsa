@@ -81,6 +81,8 @@ Commands:
 - `cat /etc/shadow` - verify max pw age & prompt for pw change upon login
 - `chage -d 0 [username]` - force user to set password upon next login
 
+![user-create-non-default-home-pass](../images/user-create-non-default-home-pass.JPG)
+
 Related files:
 - `/etc/passwd` - contains the user account information (i.e. login name, home directory, UID, GID, Shell
 - `/etc/shadow` - contains the encrypted password info & password aging & account expirations info
