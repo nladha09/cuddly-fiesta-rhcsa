@@ -101,7 +101,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 8. Find all the directories owned by user "bob" & save the output to "/bob_dir".**:</span>
+> <span style="font-family:courier new">**Task 8. Find all the directories owned by user "bob" & save the output to "/bob_dir"**:</span>
 
 Commands:
 - `find / -user bob -type d > /bob_dir` - to copy directories owned by bob
@@ -112,7 +112,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 9. Find all the directories & files owned by user w/ userid (uid) 1002 & save the output to /uid1002.**:</span>
+> <span style="font-family:courier new">**Task 9. Find all the directories & files owned by user w/ userid (uid) 1002 & save the output to /uid1002**:</span>
 
 Commands:
 - `find / -uid 1002 > /uid1002` - to copy all files & directories (not just files or directories, so no `-type` option is used here) owned by user w/ uid 1002
@@ -123,7 +123,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 10. Use `tar` command to archive all contents of "/home" directory in "/root/home.tar" file.**:
+> <span style="font-family:courier new">**Task 10. Use `tar` command to archive all contents of "/home" directory in "/root/home.tar" file**:
 >> - Compress the archived files using bzip2.</span>
 
 Commands:
@@ -136,7 +136,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 11. Use tar command to extract the contents of "home.tar.bz2" to "/directory".**:
+> <span style="font-family:courier new">**Task 11. Use tar command to extract the contents of "home.tar.bz2" to "/directory"**:
 >> - Delete contents of "/home" directory before extracting the data.</span>
 
 Commands:
@@ -152,7 +152,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 12. Use `tar` command to archive all contents of "/etc" directory in "/root/etc.tar" file.**:
+> <span style="font-family:courier new">**Task 12. Use `tar` command to archive all contents of "/etc" directory in "/root/etc.tar" file**:
 >> - Compress the archived files using gzip.</span>
 
 Commands:
@@ -176,7 +176,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 14. Create directory "/test" & set the user ownership to riya & Group ownership to sys.**:
+> <span style="font-family:courier new">**Task 14. Create directory "/test" & set the user ownership to riya & Group ownership to sys**:
 >> - Remove all the premissions for others in this directory.
 >> - Give full permissions at group level</span>
 
@@ -194,7 +194,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 15. Create symbolic link for file "/test/sys/link/file" in "/root" directory.**:</span>
+> <span style="font-family:courier new">**Task 15. Create symbolic link for file "/test/sys/link/file" in "/root" directory**:</span>
 
 Commands:
 - `cd /root` - change directory to "/root"
