@@ -25,7 +25,7 @@ Procedure (Building VM):
 - Click on "Power on this virtual machine" - if you run into the below error:
 > VMware Workstation and Device/Credential Guard are not compatible. VMware Workstation can be run after disabling Device/Credential Guard. Please visit http://www.vmware.com/go/turnoff_CG_DG for more details.
 
-- run this command as Administrator: `bcdedit /set hypervisorlaunchtype off` & restart your host (`bcdedit /set hypervisorlaunchtype auto` to turn back on)
+- run this command as Administrator: `bcdedit /set hypervisorlaunchtype off` [or `Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor -All` & restart your host (`bcdedit /set hypervisorlaunchtype auto` to turn back on)
 
 ---
 
