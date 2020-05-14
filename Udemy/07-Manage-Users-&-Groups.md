@@ -162,7 +162,7 @@ Commands:
 - `su - ldap` - switch to user ldap
 - `pwd` - ldap home directory should be shown (`/home/ldapuser/ldap`)
 
-![etc-auto.master](../images/etc-auto.master.jpg)
+![etc-auto.master](../images/etc-auto.master.JPG)
 
 ## Automount for Home Directories of multiple LDAP Users using wild cards
 
