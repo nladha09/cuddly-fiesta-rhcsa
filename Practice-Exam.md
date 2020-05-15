@@ -70,6 +70,8 @@ IPV6 - fd01::100/64
 
 > All user passwords should expire after 60 days and be atleast 8 characters in length.
 
+- ~~`vi /etc/pam.d/system-auth` (`minlen=8`) - PAM ('pluggable authentication module') or~~ `vi /etc/login.defs`
+
 > phil and laura should be part of the “accounting” group. If the group doesn’t already exist, create it.
 
 > stewart and kevin should be part of the “marketing” group. If the group doesn’t already exist, create it.
