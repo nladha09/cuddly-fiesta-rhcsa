@@ -38,4 +38,4 @@ Commands:
 - Configure IPv4 and IPv6 addresses objective, previously associated with the RHCE 7 exam, is a new RHCSA 8 objective.
 - Restrict network access using firewall-cmd/firewalld and Configure firewall settings using firewall-cmd/firewalld are not really new objectives.
 - Configure superuser access is a new objective, which asks candidates to know the sudo command and associated configuration.
-
+- SELinux context stuffs
