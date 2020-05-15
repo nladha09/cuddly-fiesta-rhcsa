@@ -26,7 +26,7 @@ Commands:
 
 **TODO**:
 - Preserve system journals is a new objective, system journals not being preserved by default.
-     - `vi /etc/systemd/journald.conf` - change "_Storage_" to "_persistent_"
+     - `vi /etc/systemd/journald.conf` - change "_Storage_" value to "_persistent_" from "_auto_"
      - `systemctl restart systemd-journald` - restart systemd-journal once changes are saved
      - `var/log/journal` - directory should be created
      
