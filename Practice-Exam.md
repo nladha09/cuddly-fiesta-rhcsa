@@ -54,6 +54,8 @@ IPV6 - fd01::100/64
 
 11.) Use the appropriate utility to create a 5TiB thin provisioned volume.
 
+[This???](https://www.tecmint.com/setup-thin-provisioning-volumes-in-lvm/)
+
 12.) Configure a basic web server that displays “Welcome to the web server” once connected to it. Ensure the firewall allows the http/https services.
 
 13.) Find all files that are larger than 5MB in the /etc directory and copy them to /find/largefiles
