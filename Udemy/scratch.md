@@ -26,6 +26,10 @@ Commands:
 
 **TODO**:
 - Preserve system journals is a new objective, system journals not being preserved by default.
+     - `vi /etc/systemd/journald.conf` - change "_Storage_" to "_persistent_"
+     - `systemctl restart systemd-journald` - restart systemd-journal once changes are saved
+     - `var/log/journal` - directory should be created
+     
 - Mount and unmount CIFS network file systems objective has been withdrawn but not NFS network file systems: SAMBA and Windows integration doesn’t seem to be a priority anymore, at least on the filesystem side.
 - Mount and unmount network file systems using NFS (autofs)
 - Configure disk compression objective shows up: Red Hat wants sysadmins to master the VDO technology, purchased several years ago.
