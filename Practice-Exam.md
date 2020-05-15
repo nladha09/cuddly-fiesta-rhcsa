@@ -59,9 +59,9 @@ IPV6 - fd01::100/64
 13.) Find all files that are larger than 5MB in the /etc directory and copy them to /find/largefiles
 
 14.) Write a script named awesome.sh in the root directory on system1.
-> If “me” is given as an argument, then the script should output “Yes, I’m awesome.”\
+> If “me” is given as an argument, then the script should output “Yes, I’m awesome.”
 
-> If “them” is given as an argument, then the script should output “Okay, they are awesome.”\
+> If “them” is given as an argument, then the script should output “Okay, they are awesome.”
 
 > If the argument is empty or anything else is given, the script should output “Usage ./awesome.sh me|them”
 
