@@ -20,7 +20,7 @@ Commands:
 > <span style="font-family:courier new">**Find all files in `/etc` that are smaller than 1000bytes & copy those to `/tmp/files/pictures`**:</span>
 
 Commands:
-- `find /etc -size -1000c -exec cp {} pictures \;` - this will find all files in `/etc` w/ a size less than (`-`) 1000c & then `-exec`(ute) the `cp` command on the resulting files `{}` & copy them to the relative path w/in our directory of 'pictures', & then close the command using `/;` ((**CHECK** if need to specify `-type f`))
+- `find /etc -type f -size -1000c -exec cp -pv {} pictures \;` - this will find all files in `/etc` w/ a size less than (`-`) 1000c & then `-exec`(ute) the `cp` command on the resulting files `{}` & copy them to the relative path w/in our directory of 'pictures', & then close the command using `/;` ((`-pv` for verbose & save permissions))
 - `ls pictures/` - now we should see everything we intended to copy being now copied there.
 ---
 
