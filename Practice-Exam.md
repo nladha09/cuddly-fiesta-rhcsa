@@ -32,6 +32,13 @@ If you’re not using the automated deployments, then install RHEL 8 with  “Wo
 
 1.) Interrupt the boot process and reset the root password. Change it to “wander” to gain access to the system.
 
+- `rd.break` - at the end of the line starting with "Linux" & then "CTRL+X" to continue process
+- `mount -o remount, rw /sysroot`
+- `chroot /sysroot`
+- `passwd` - enter password to set
+- `touch /.autorelabel`
+- `exit` & `exit`
+
 2.) Repos are available from the repo server at http://repo.eight.example.com/BaseOS and and http://repo.eight.example.com/AppStream for you to use during the exam.
 
 3.) The system time should be set to your (or nearest to you) timezone and ensure NTP sync is configured.
