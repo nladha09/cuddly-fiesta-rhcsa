@@ -43,32 +43,75 @@ If you’re not using the automated deployments, then install RHEL 8 with  “Wo
 
 3.) The system time should be set to your (or nearest to you) timezone and ensure NTP sync is configured.
 
+- `timedatectl set-timezone America/Denver`
+- ` vi /etc/chrony.conf`
+- `chronyc sources`
+
 4.) Add the following secondary IP addresses statically to your current running interface. Do this in a way that doesn’t compromise your existing settings:
 >IPV4 - 10.0.0.5/24\
 IPV6 - fd01::100/64
 
+- `systemctl status NetworkManager`
+- `systemctl start NetworkManager`
+- `systemctl enable NetworkManager`
+- `nmcli connection modify server1 ipv4.addresses 10.0.0.5/24 ipv6.addresses fd01::100/64 ipv4.method manual ipv6.method manual`
+- `nmcli connection up "System eth0"`
+- `systemctl restart NetworkManager`
+- `nmcli connection show`
+- `ip a`
+
 5.) Enable packet forwarding on system1. This should persist after reboot.
+
+- `sysctl -a | grep forwarding >> /etc/sysctl.conf`
+- `vi /etc/sysctl.conf`
 
 6.) System1 should boot into the multiuser target by default and boot messages should be present (not silenced).
 
+- `systemctl set-default multi-user.target` (this should already be in effect)
+
+- `vi /etc/default/grub`
+
 7.) Create a new 2GB volume group named “vgprac”.
+
+- `fdisk /dev/sdb` - to create new partition
+    - `n` & then press "ENTER"
+    - `+2G`
+    - `t` & press "ENTER"
+    - `8e` & `wq`
+- `partprobe` - to inform kernel about partition
+- `pvcreate /dev/sdb8` - create physical volume on partition
+- `vgcreate vgprac /dev/sdb8` - create volume group (do I need to specify "+2G" here?)
 
 8.) Create a 500MB logical volume named “lvprac” inside the “vgprac” volume group.
 
+- `lvcreate -n lvprac -L +500M /dev/sdb8 lvprac` - (check if this is correct?)
+- `lvdisplay | less` - to view LV info
+
 9.) The “lvprac” logical volume should be formatted with the xfs filesystem and mount persistently on the /mnt/lvprac directory.
+
+- `mkdir /mnt/lvprac`
+- `mkfs -t xfs -f /dev/vgprac/lvprac`
+- `vi /etc/fstab` & `/dev/vgprac/lvprac  /mnt/lvprac  xfs  defaults  0 0`
+- `mount -a`
 
 10.) Extend the xfs filesystem on “lvprac” by 500MB.
 
+- `lvextend -r -L +500M /dev/vgprac/lvprac`
+- `lvdisplay`
+
 11.) Use the appropriate utility to create a 5TiB thin provisioned volume.
 
-[This???](https://www.tecmint.com/setup-thin-provisioning-volumes-in-lvm/)
 
 12.) Configure a basic web server that displays “Welcome to the web server” once connected to it. Ensure the firewall allows the http/https services.
 
 13.) Find all files that are larger than 5MB in the /etc directory and copy them to /find/largefiles
 
+- `find /etc -type f -size -1000c -exec cp -pv {} /find/largefiles /;`
+
 14.) Write a script named awesome.sh in the root directory on system1.
 > If “me” is given as an argument, then the script should output “Yes, I’m awesome.”
+
+- **LESSON 19 in OneNote covers this**
 
 > If “them” is given as an argument, then the script should output “Okay, they are awesome.”
 
@@ -90,5 +133,7 @@ IPV6 - fd01::100/64
 17.) Only members of the marketing group should have access to the “/marketing” directory. Make stewart the owner of this directory. Make the marketing group the group owner of the “/marketing” directory.
 
 18.) New files should be owned by the group owner and only the file creator should have the permissions to delete their own files.
+
+[sticky-bits & SGID](http://www.techcuriosity.com/resources/linux/advanced_file_permissions_in_linux.php)
 
 19.) Create a cron job that writes “This practice exam was easy and I’m ready to ace my RHCSA” to /var/log/messages at 12pm only on weekdays.
