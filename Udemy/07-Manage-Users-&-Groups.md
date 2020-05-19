@@ -153,7 +153,7 @@ Commands:
 - `vi /etc/auto.master` - define the base location for the home directory in `auto.master` file which is used by `autofs`
 > `/home/ldapuser` `/etc/auto.ldap` (underneath /misc etc.)
 - `:wq`
-- `man showmount` - (we will use the `-e` for exports which shows the NFS server's export list)
+- `man showmount` - (we will use the `-e` for exports which shows the NFS server's export list) - **had to `yum install nfs-utils` for `showmount` cmds**
 - `showmount -e server2:` (hostname for NFS server, if you don't have DNS configured the hostname can be resolved into IP, so you could use IP here - in the exam you will get everything configured on DNS)
 - `vi /etc/auto.ldap` - here we will define the home directory (which is ldap)
 > `ldap` `server2:/home/ldapuser/ldap` (first line)
@@ -168,7 +168,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 7. Configure "server1" to aoutmount home directory of LDAP users "ldap1" & "ldap2"**:
+> <span style="font-family:courier new">**Task 7. Configure "server1" to automount home directory of LDAP users "ldap1" & "ldap2"**:
 >> - Home directory of LDAP users ldap1 & ldap2 is `/home/ldap1` & `/homeldap2` respectively.
 >> - Home directory is shared by "server2" through NFS export.
 >> - LDAP user should get his home directory when logged in.
