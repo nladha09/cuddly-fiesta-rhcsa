@@ -101,6 +101,7 @@ IPV6 - fd01::100/64
 
 11.) Use the appropriate utility to create a 5TiB thin provisioned volume.
 
+- **LESSON 15 in OneNote covers this (at the bottom)**
 
 12.) Configure a basic web server that displays “Welcome to the web server” once connected to it. Ensure the firewall allows the http/https services.
 
