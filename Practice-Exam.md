@@ -120,19 +120,131 @@ IPV6 - fd01::100/64
 > If the argument is empty or anything else is given, the script should output “Usage ./awesome.sh me|them”
 
 15.) Create users phil, laura, stewart, and kevin.
+
 > All new users should have a file named “Welcome” in their home folder after account creation.
+
+- `touch /etc/skel/welcome.txt`
+- `useradd -m phil`
+- `useradd -m laura`
+- `useradd -m stewart`
+- `useradd -m kevin`
+
+[From](https://unix.stackexchange.com/questions/146896/default-files-in-home-dir-for-each-user) `man useradd` :
+
+```
+-k, --skel SKEL_DIR
+           The skeleton directory, which contains files and directories to 
+           be copied in the user's home directory, when the home
+           directory is created by useradd.
+
+           This option is only valid if the -m (or --create-home) option is 
+           specified.
+
+           If this option is not set, the skeleton directory is defined by 
+           the SKEL variable in /etc/default/useradd or, by
+           default, /etc/skel.
+
+           If possible, the ACLs and extended attributes are copied.
+```
 
 > All user passwords should expire after 60 days and be atleast 8 characters in length.
 
-- ~~`vi /etc/pam.d/system-auth` (`minlen=8`) - PAM ('pluggable authentication module') or~~ `vi /etc/login.defs`
+- `vi /etc/login.defs`
+
+```
+# cat /etc/login.defs
+#
+# Please note that the parameters in this configuration file control the
+# behavior of the tools from the shadow-utils component. None of these
+# tools uses the PAM mechanism, and the utilities that use PAM (such as the
+# passwd command) should therefore be configured elsewhere. Refer to
+# /etc/pam.d/system-auth for more information.
+#
+
+# *REQUIRED*
+#   Directory where mailboxes reside, _or_ name of file, relative to the
+#   home directory.  If you _do_ define both, MAIL_DIR takes precedence.
+#   QMAIL_DIR is for Qmail
+#
+#QMAIL_DIR	Maildir
+MAIL_DIR	/var/spool/mail
+#MAIL_FILE	.mail
+
+# Password aging controls:
+#
+#	PASS_MAX_DAYS	Maximum number of days a password may be used.
+#	PASS_MIN_DAYS	Minimum number of days allowed between password changes.
+#	PASS_MIN_LEN	Minimum acceptable password length.
+#	PASS_WARN_AGE	Number of days warning given before a password expires.
+#
+PASS_MAX_DAYS	99999
+PASS_MIN_DAYS	0
+PASS_MIN_LEN	5
+PASS_WARN_AGE	7
+
+#
+# Min/max values for automatic uid selection in useradd
+#
+UID_MIN                  1000
+UID_MAX                 60000
+# System accounts
+SYS_UID_MIN               201
+SYS_UID_MAX               999
+
+#
+# Min/max values for automatic gid selection in groupadd
+#
+GID_MIN                  1000
+GID_MAX                 60000
+# System accounts
+SYS_GID_MIN               201
+SYS_GID_MAX               999
+
+#
+# If defined, this command is run when removing a user.
+# It should remove any at/cron/print jobs etc. owned by
+# the user to be removed (passed as the first argument).
+#
+#USERDEL_CMD	/usr/sbin/userdel_local
+
+#
+# If useradd should create home directories for users by default
+# On RH systems, we do. This option is overridden with the -m flag on
+# useradd command line.
+#
+CREATE_HOME	yes
+
+# The permission mask is initialized to this value. If not specified, 
+# the permission mask will be initialized to 022.
+UMASK           077
+
+# This enables userdel to remove user groups if no members exist.
+#
+USERGROUPS_ENAB yes
+
+# Use SHA512 to encrypt password.
+ENCRYPT_METHOD SHA512
+```
 
 > phil and laura should be part of the “accounting” group. If the group doesn’t already exist, create it.
 
+- `groupadd accounting`
+- `usermod -aG accounting phil`
+- `usermod -aG accounting laura`
+
 > stewart and kevin should be part of the “marketing” group. If the group doesn’t already exist, create it.
+
+- `groupadd marketing`
+- `usermod -aG marketing stewart`
+- `usermod -aG marketing kevin`
 
 16.) Only members of the accounting group should have access to the “/accounting” directory. Make laura the owner of this directory. Make the accounting group the group owner of the “/accounting” directory.
 
+- `chown laura:accounting /accounting` ( < **CHECK ON THIS**)  
+
 17.) Only members of the marketing group should have access to the “/marketing” directory. Make stewart the owner of this directory. Make the marketing group the group owner of the “/marketing” directory.
+
+- `chown stewart:marketing /marketing` ( < **CHECK ON THIS**)  
 
 18.) New files should be owned by the group owner and only the file creator should have the permissions to delete their own files.
 
@@ -140,3 +252,5 @@ IPV6 - fd01::100/64
 
 19.) Create a cron job that writes “This practice exam was easy and I’m ready to ace my RHCSA” to /var/log/messages at 12pm only on weekdays.
 
+- `crontab -e`
+- `* 12 * * 3 echo "I'm ready to ace my RHCSA" > /var/log/messages` ( < **CHECK ON THIS**)  
