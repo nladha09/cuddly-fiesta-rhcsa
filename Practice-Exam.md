@@ -64,6 +64,7 @@ IPV6 - fd01::100/64
 
 - `sysctl -a | grep forwarding >> /etc/sysctl.conf`
 - `vi /etc/sysctl.conf`
+- **NEED TO FIND OUT WHICH KERNEL PARAMETER IT IS ASKING FOR** (will the parameter be specified 
 
 6.) System1 should boot into the multiuser target by default and boot messages should be present (not silenced).
 
@@ -110,9 +111,9 @@ IPV6 - fd01::100/64
 - `find /etc -type f -size -1000c -exec cp -pv {} /find/largefiles /;`
 
 14.) Write a script named awesome.sh in the root directory on system1.
-> If “me” is given as an argument, then the script should output “Yes, I’m awesome.”
 
 - **LESSON 19 in OneNote covers this**
+> If “me” is given as an argument, then the script should output “Yes, I’m awesome.”
 
 > If “them” is given as an argument, then the script should output “Okay, they are awesome.”
 
@@ -138,3 +139,4 @@ IPV6 - fd01::100/64
 [sticky-bits & SGID](http://www.techcuriosity.com/resources/linux/advanced_file_permissions_in_linux.php)
 
 19.) Create a cron job that writes “This practice exam was easy and I’m ready to ace my RHCSA” to /var/log/messages at 12pm only on weekdays.
+
