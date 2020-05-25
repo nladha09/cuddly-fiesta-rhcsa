@@ -124,7 +124,7 @@ IPV6 - fd01::100/64
 
 > If the argument is empty or anything else is given, the script should output “Usage ./awesome.sh me|them”
 
-- ```
+``` bash
 # !/bin/bash
 
 # check that an argument was provided or exit
@@ -154,7 +154,6 @@ to test:
 - `./awesome.sh me`
 - `./awesome.sh them`
 - `./awesome.sh blahblah`
-
 
 15.) Create users phil, laura, stewart, and kevin.
 
