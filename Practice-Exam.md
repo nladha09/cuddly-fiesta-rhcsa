@@ -105,6 +105,18 @@ IPV6 - fd01::100/64
 
 - **LESSON 15 in OneNote covers this (at the bottom)**
 
+- `yum install vdo kmod-kvdo` - to install VDO (two packages)
+- `systemctl status vdo.service` - check status, but should be enabled & do not need to activate (will start automatically)
+- `fdisk /dev/sdb`
+    - `n` press "Enter" twice & `:wq` (**do I need to specify a size amount here?**)
+    - `partprobe` - to inform kernel of partition
+
+- `vdo create --name=vdo1 --device=/dev/sdb1 --vdoLogicalSize=5T` - this will create the vdo
+- `vdo list` - list VDO devices
+- `vdo -h` - helpful to go through these
+
+(**need to mount as well**?)
+
 12.) Configure a basic web server that displays “Welcome to the web server” once connected to it. Ensure the firewall allows the http/https services.
 
 13.) Find all files that are larger than 5MB in the /etc directory and copy them to /find/largefiles
