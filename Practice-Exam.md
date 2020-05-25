@@ -114,11 +114,47 @@ IPV6 - fd01::100/64
 14.) Write a script named awesome.sh in the root directory on system1.
 
 - **LESSON 19 in OneNote covers this**
+
+- `touch awesome.sh`
+- `vi /awesome.sh`
+
 > If “me” is given as an argument, then the script should output “Yes, I’m awesome.”
 
 > If “them” is given as an argument, then the script should output “Okay, they are awesome.”
 
 > If the argument is empty or anything else is given, the script should output “Usage ./awesome.sh me|them”
+
+- ```bash
+# !/bin/bash
+
+# check that an argument was provided or exit
+if [-z $1]
+then
+    echo "Usage ./awesome.sh me|them"
+    exit 2
+fi
+
+# evaluate arguments
+case $1 in
+me)
+    echo "Yes, I'm awesome"
+    ;;
+them)
+    echo "Okay, they are awesome"
+    ;;
+*)
+    echo "Usage ./awesome.sh me|them"
+esac
+```
+- `chmod +x awesome.sh` - set permissions on this file to execute
+
+to test: 
+
+- `./awesome.sh`
+- `./awesome.sh me`
+- `./awesome.sh them`
+- `./awesome.sh blahblah`
+
 
 15.) Create users phil, laura, stewart, and kevin.
 
