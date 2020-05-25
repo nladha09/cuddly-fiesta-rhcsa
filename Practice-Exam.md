@@ -124,7 +124,7 @@ IPV6 - fd01::100/64
 
 > If the argument is empty or anything else is given, the script should output “Usage ./awesome.sh me|them”
 
-- ```bash
+- ```
 # !/bin/bash
 
 # check that an argument was provided or exit
