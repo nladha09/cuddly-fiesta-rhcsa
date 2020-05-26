@@ -140,7 +140,7 @@ IPV6 - fd01::100/64
 # !/bin/bash
 
 # check that an argument was provided or exit
-if [-z $1]
+if [ -z $1 ]
 then
     echo "Usage ./awesome.sh me|them"
     exit 2
