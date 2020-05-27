@@ -399,8 +399,8 @@ Commands:
 - `setfacl -R -m d:u:harry:rwx /system` - default `acl` for harry
 - `setfacl -R -m u:bob:rx /system` - to configure `acl` for bob (**execution rights are required to move / `cd` to the directory**)
 - `setfacl -R -m d:u:bob:rx /system` - default `acl` for bob
-- `setfacl -R -m u:lisa- /system` - to configure `acl` for lisa
-- `setfacl -R -m d:u:lisa- /system` - default `acl` for lisa
+- `setfacl -R -m u:lisa:- /system` - to configure `acl` for lisa
+- `setfacl -R -m d:u:lisa:- /system` - default `acl` for lisa
 - `getfacl /system` - display `acl`s
 
 ## Mounting NFS File Systems
