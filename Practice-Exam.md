@@ -30,6 +30,8 @@ If you’re not using the automated deployments, then install RHEL 8 with  “Wo
 
 **NOTE** - The below questions assume you’re using the automated deployment but you can also use a practice environment you created. However, you will have to set up your own repo, change host names, IP addresses, etc to reflect your own environment details.
 
+# 
+
 1.) Interrupt the boot process and reset the root password. Change it to “wander” to gain access to the system.
 
 - `rd.break` - at the end of the line starting with "Linux" & then "CTRL+X" to continue process
@@ -39,13 +41,19 @@ If you’re not using the automated deployments, then install RHEL 8 with  “Wo
 - `touch /.autorelabel`
 - `exit` & `exit`
 
+# 
+
 2.) Repos are available from the repo server at http://repo.eight.example.com/BaseOS and and http://repo.eight.example.com/AppStream for you to use during the exam.
+
+# 
 
 3.) The system time should be set to your (or nearest to you) timezone and ensure NTP sync is configured.
 
 - `timedatectl set-timezone America/Denver`
 - ` vi /etc/chrony.conf`
 - `chronyc sources`
+
+# 
 
 4.) Add the following secondary IP addresses statically to your current running interface. Do this in a way that doesn’t compromise your existing settings:
 >IPV4 - 10.0.0.5/24\
@@ -60,6 +68,8 @@ IPV6 - fd01::100/64
 - `nmcli connection show`
 - `ip a`
 
+# 
+
 5.) Enable packet forwarding on system1. This should persist after reboot.
 
 - `sysctl -a | grep forwarding >> /etc/sysctl.conf`
@@ -67,11 +77,15 @@ IPV6 - fd01::100/64
 - **NEED TO FIND OUT WHICH KERNEL PARAMETER IT IS ASKING FOR** (will the parameter be specified
 - `net.ipv4.ip_forward = 1` - change `0` to `1` 
 
+# 
+
 6.) System1 should boot into the multiuser target by default and boot messages should be present (not silenced).
 
 - `systemctl set-default multi-user.target` (this should already be in effect)
 
 - `vi /etc/default/grub`
+
+# 
 
 7.) Create a new 2GB volume group named “vgprac”.
 
@@ -84,10 +98,14 @@ IPV6 - fd01::100/64
 - `pvcreate /dev/sdb8` - create physical volume on partition
 - `vgcreate vgprac /dev/sdb8` - create volume group (do I need to specify "+2G" here?)
 
+# 
+
 8.) Create a 500MB logical volume named “lvprac” inside the “vgprac” volume group.
 
 - `lvcreate -n lvprac -L +500M /dev/sdb8 lvprac` - (check if this is correct?)
 - `lvdisplay | less` - to view LV info
+
+# 
 
 9.) The “lvprac” logical volume should be formatted with the xfs filesystem and mount persistently on the /mnt/lvprac directory.
 
@@ -96,10 +114,14 @@ IPV6 - fd01::100/64
 - `vi /etc/fstab` & `/dev/vgprac/lvprac  /mnt/lvprac  xfs  defaults  0 0`
 - `mount -a`
 
+# 
+
 10.) Extend the xfs filesystem on “lvprac” by 500MB.
 
 - `lvextend -r -L +500M /dev/vgprac/lvprac`
 - `lvdisplay`
+
+# 
 
 11.) Use the appropriate utility to create a 5TiB thin provisioned volume.
 
@@ -121,6 +143,8 @@ IPV6 - fd01::100/64
 
 - [Recommended VDO Slab Sizes by Physical Volume Size](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/vdo-integration#vdo-ig-volume)
 
+# 
+
 12.) Configure a basic web server that displays “Welcome to the web server” once connected to it. Ensure the firewall allows the http/https services.
 
 - `yum install httpd` - install apached - which is the `httpd` package
@@ -132,9 +156,13 @@ IPV6 - fd01::100/64
 - `systemctl restart httpd` - after making this change, we need to restart the `httpd` service (changes & website should now be active)
 - `curl http://localhost` - test with CURL - pending no service issues or blocks by firewalld / SELinux, we should see 'Welcome ot the seb server' returned to us
 
+# 
+
 13.) Find all files that are larger than 5MB in the /etc directory and copy them to /find/largefiles
 
 - `find /etc -type f -size -1000c -exec cp -pv {} /find/largefiles /;`
+
+# 
 
 14.) Write a script named awesome.sh in the root directory on system1.
 
@@ -179,6 +207,8 @@ to test:
 - `./awesome.sh me`
 - `./awesome.sh them`
 - `./awesome.sh blahblah`
+
+# 
 
 15.) Create users phil, laura, stewart, and kevin.
 
@@ -303,13 +333,19 @@ ENCRYPT_METHOD SHA512
 
 - `chown laura:accounting /accounting` ( < **CHECK ON THIS**)  
 
+# 
+
 17.) Only members of the marketing group should have access to the “/marketing” directory. Make stewart the owner of this directory. Make the marketing group the group owner of the “/marketing” directory.
 
 - `chown stewart:marketing /marketing` ( < **CHECK ON THIS**)  
 
+# 
+
 18.) New files should be owned by the group owner and only the file creator should have the permissions to delete their own files.
 
 [sticky-bits & SGID](http://www.techcuriosity.com/resources/linux/advanced_file_permissions_in_linux.php)
+
+# 
 
 19.) Create a cron job that writes “This practice exam was easy and I’m ready to ace my RHCSA” to /var/log/messages at 12pm only on weekdays.
 
