@@ -374,7 +374,7 @@ Commands:
 - `setfacl --help` - options for `acl` (`-m` = modify-acl, `-x` = remove-acl, `-k` = remove-default, `-d` = set default acl - applied to future files & dirs, sub-dirs created under the directory)
 ---
 - `setfacl -R -m u:riya:- /private/home` - to remove all access for riya on this directory (`-R` for recursive, `-m` for modify, `u:` for user, `-` remove all rights)
-- `setfacl - R -m d:u:riya:- /private/home` - to apply default control list so that it is applicable for  future file & sub-directories under this directory
+- `setfacl -R -m d:u:riya:- /private/home` - to apply default control list so that it is applicable for  future file & sub-directories under this directory
 - `getfacl /private/home` - to display `acl` applied to directory - user riya has no rights
 - `usermod -aG sys bob` - to assign supplementary group to bob
 - `cat /etc/group` - to check group info
