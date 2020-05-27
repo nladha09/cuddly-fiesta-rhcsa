@@ -105,13 +105,16 @@ IPV6 - fd01::100/64
 
 - **LESSON 15 in OneNote covers this (at the bottom)**
 
+- VDO currently supports any logical size up to 254 times the size of the physical volume with an absolute maximum logical size of 4PB.
+
+
 - `yum install vdo kmod-kvdo` - to install VDO (two packages)
 - `systemctl status vdo.service` - check status, but should be enabled & do not need to activate (will start automatically)
 - `fdisk /dev/sdb`
-    - `n` press "Enter" twice & `:wq` (**do I need to specify a size amount here?**)
+    - `n` press "Enter" twice & `:wq` - 5 TiB = 5120 GiB; so I created a physical partition of +15G (which worked - this is the physical size)
     - `partprobe` - to inform kernel of partition
 
-- `vdo create --name=vdo1 --device=/dev/sdb1 --vdoLogicalSize=5T` - this will create the vdo
+- `vdo create --name=vdo1 --device=/dev/sdb1 --vdoLogicalSize=5T` - this will create the vdo (logical size)
 - `vdo list` - list VDO devices
 - `vdo -h` - helpful to go through these
 
