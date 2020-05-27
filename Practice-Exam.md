@@ -119,6 +119,8 @@ IPV6 - fd01::100/64
 
 (**need to mount as well**?)
 
+- [Recommended VDO Slab Sizes by Physical Volume Size](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/vdo-integration#vdo-ig-volume)
+
 12.) Configure a basic web server that displays “Welcome to the web server” once connected to it. Ensure the firewall allows the http/https services.
 
 - `yum install httpd` - install apached - which is the `httpd` package
