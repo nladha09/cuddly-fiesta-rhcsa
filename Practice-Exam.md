@@ -107,7 +107,6 @@ IPV6 - fd01::100/64
 
 - VDO currently supports any logical size up to 254 times the size of the physical volume with an absolute maximum logical size of 4PB.
 
-
 - `yum install vdo kmod-kvdo` - to install VDO (two packages)
 - `systemctl status vdo.service` - check status, but should be enabled & do not need to activate (will start automatically)
 - `fdisk /dev/sdb`
@@ -121,6 +120,15 @@ IPV6 - fd01::100/64
 (**need to mount as well**?)
 
 12.) Configure a basic web server that displays “Welcome to the web server” once connected to it. Ensure the firewall allows the http/https services.
+
+- `yum install httpd` - install apached - which is the `httpd` package
+- `systemctl status httpd` 
+- `systemctl start httpd`
+- `systemctl enable httpd` - enable it
+- `cd /var/www/html` - go into the `httpd` main directory & create `index.html` file
+- `touch index.html` & `vi index.html` (add the text "Welcome to the web server" in this file & `:wq`)
+- `systemctl restart httpd` - after making this change, we need to restart the `httpd` service (changes & website should now be active)
+- `curl http://localhost` - test with CURL - pending no service issues or blocks by firewalld / SELinux, we should see 'Welcome ot the seb server' returned to us
 
 13.) Find all files that are larger than 5MB in the /etc directory and copy them to /find/largefiles
 
