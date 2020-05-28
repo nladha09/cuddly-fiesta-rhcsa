@@ -54,7 +54,7 @@ Commands:
 - `firewall-cmd --add-service=http --permanent` - to add service on firewall persistently to allow inbound traffic (must reload firewall to make effective immediately - `firewall-cmd --reload`)
 - `firewall-cmd --list-all` - to display all firewall settings
 
-## Configuring firewall using fireall-config (Graphical Interface)
+## Configuring firewall using firewall-config (Graphical Interface)
 
 ---
 
@@ -76,5 +76,4 @@ Commands:
 
 
 **TODO**:
-- [ ]  test
-- [ ]  test
+- [ ]  run through these on server1
