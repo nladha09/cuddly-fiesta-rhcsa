@@ -36,7 +36,7 @@ Commands:
 - `mkdir /web` - make `/web` directory
 - `ls -ldZ /web` - list contexts on this directory (`default_t`) but need to change to (`httpd_sys_content_t`)
 - `chcon -t httpd_sys_content_t /web` - to set the SELinux Context type for _run time_, not permanent (`chcon` = change context option; `-t` = set the security context type)
-- `semanage fcontext -a -t httpd_sys_content_t "/web(/.*)?"` - to set the SELinux Context type _persistently_ (can view `man semanage fcontext` ) - this command is found in the man page: to add file-contest for everything under "/web"
+- `semanage fcontext -a -t httpd_sys_content_t "/web(/.*)?"` - to set the SELinux Context type _persistently_ (can view `man semanage fcontext` ) - this command is found in the man page: to add file-contest for everything under "/web" --- (had to run a couple of commands as I ran into "__-bash: semanage: command not found__" error - `yum provides /usr/sbin/semanage` & `yum install policycoreutils-python-utils`)
 - `restorecon -Rv /web` - to restore the SELinux Context
 - `ls -ldZ /web` - to verify the SELinux Context
 
