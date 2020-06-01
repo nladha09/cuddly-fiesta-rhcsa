@@ -164,19 +164,43 @@ Also, this command is what you use for an individual user, if the question asks 
 
 19.) Create a volume group called "shazam" consisting of two physical volumes each 256MB in size
 
-- `
+- `fdisk /dev/sdb`
+>`n` - `e` - "Enter" - "Enter" - `n` - "Enter" - `+256M` - "Enter" - `t` - "Enter" - `8e` (change partition to "LVM")
+
+- do the same thing again to create the second partition.
+
+- `partprobe`
+
+- `pvcreate /dev/sdb8 /dev/sdb9`
+
+- `vgcreate shazam /dev/sdb8 /dev/sdb9`
+
+- `vgdisplay`
 
 # 
 
 20.) Add a logical volume called storage in the volume group shazam mounted at /storage permanently as xfs
 
-- `
+- `lvcreate -n storage -L 400M shazam`
+- `lvdisplay`
+- `mkfs -t xfs /dev/shazam/storage`
+- `mkdir /storage`
+- `vi /etc/fstab`
+> `/dev/shazam/storage  /storage  xfs  defaults  1  2`
+- `mount -a`
 
 # 
 
 21.) Extend the logical volume storage to be 700MB
 
-- `
+- `fdisk /dev/sdb`
+- `n` - "Enter" - "Enter" - `+512M` - `t` - "Enter" - `8e` - `wq`
+- `partprobe`
+- `lsblk` - check new partitions
+- `vgextend shazam /dev/sdb10`
+- `vgdisplay`
+- `lvextend -r -L 700M /dev/shazam/storage`
+- `df -h` - verify changes
 
 # 
 
