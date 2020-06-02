@@ -312,7 +312,7 @@ Also, this command is what you use for an individual user, if the question asks 
 
 32.) Create a thinly provisioned filesystem called "practice-fs" using stratis in a pool named "practice-pool" mounted at /practice-stratis-volume
 
-- `
+- RESUME Question number: 29 on page:6 (Test 2)
 
 # 
 
