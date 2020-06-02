@@ -268,13 +268,14 @@ Also, this command is what you use for an individual user, if the question asks 
 
  ###### <span style="color:yellow"> * These two questions should be enough to handle security questions and firewall questions</span>
 
- ###### <span style="color:yellow"> * Just remember to know how to change the context as in this questions, add a port to SELinux, add a port for the firewall</span>
+ ###### <span style="color:yellow"> * Just remember to know how to change the context as notated in these questions, add a port to SELinux, add a port for the firewall</span>
 
 # 
 
-28.) 
+28.) Establish ssh connection with server 2 at 192.168.55.151 for the user vagrant
 
-- `
+- `ssh-keygen`
+- `ssh-copy-id vagrant@192.168.55.151` & type `yes` when prompted with "Are you sure you want to continue connecting?"
 
 # 
 
@@ -332,62 +333,3 @@ Also, this command is what you use for an individual user, if the question asks 
 
 # 
 
-38.) 
-
-- `
-
-# 
-
-39.) 
-
-- `
-
-# 
-
-40.) 
-
-- `
-
-# 
-
-41.) 
-
-- `
-
-# 
-
-42.) 
-
-- `
-
-# 
-
-43.) 
-
-- `
-
-# 
-
-44.) 
-
-- `
-
-# 
-
-45.) 
-
-- `
-
-# 
-
-46.) 
-
-- `
-
-# 
-
-47.) 
-
-- `
-
-# 
