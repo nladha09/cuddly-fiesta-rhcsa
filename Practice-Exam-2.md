@@ -204,39 +204,71 @@ Also, this command is what you use for an individual user, if the question asks 
 
 # 
 
-![question-22](../images/question-22.JPG)
+22.) ![question-22](images/question-22.JPG)
 
-- `
-
-# 
-
-23.) 
-
-- `
-
-# 
-
-24.) 
-
-- `
+- `systemctl status NetworkManager`
+- `nmcli connection show`
+- `ip a`
+- `nmcli connection add con-name system ifname eth1 type ethernet ipv4.addresses 192.168.55.150/24 ipv4.gateway 192.168.5.1 ipv4.dns 8.8.8.8 ipv4.method manual`
+- `nmcli connection up system`
+- `systemctl restart NetworkManager`
+- `cd /etc/sysconfig/network-scripts` - verify connection settings
+- `cat /etc/resolv.conf` - verify DNS IP address
+- `route -n` - to verify default gateway
 
 # 
 
-25.) 
+23.) Configure the previously created connection to be auto started
 
-- `
-
-# 
-
-26.) 
-
-- `
+- `nmcli con mod system connection.autoconnect yes` - configure the `connection.autoconnect` to "yes" for the connection
+- `nmcli con mod other-connection connection.autoconnect no` - configure the `connection.autoconnect` to "no" for the rest of the connections.
 
 # 
 
-27.) 
+24.) ![question-24](images/question-24.JPG)
 
-- `
+- `systemctl status NetworkManager`
+- `nmcli connection show`
+- `ip a`
+- `nmcli connection modify con-name system +ipv4.addresses 10.0.0.5/24 +ipv6.addresses fd01::100/64 ipv4.method manual ipv6.method manual`
+- `nmcli connection up system`
+- `systemctl restart NetworkManager`
+- `cd /etc/sysconfig/network-scripts` - verify connection settings
+
+# 
+
+25.) Configure the hosts file so that 10.0.0.5 could be referenced as private (**REVIEW THIS**)
+
+- `echo -e "10.0.0.5 private" >> /etc/hosts` - as root (basically editing `/etc/hosts` file
+
+# 
+
+26.) Configure httpd to use port 1001 (**REVIEW THIS**)
+
+- `yum provides semanage` - in case `semanage` is not installed by default (should be installed on exam env)
+- `yum install policycoreutils-python-utils -y`
+- `semanage port -a -t http_port_t -p tcp 1001` - add port 1001 as an http port; add the port as `http_port_t` ( `-a` add `-t` type `-p` protocol)
+
+- now that we added port 1001 as an HTTP port, SELinux should be content
+
+- the second part of the problem is mostly going to be the firewall that doesn't allow port 1001
+
+- `firewall-cmd --get-default-zone` - we need to add that port, but before that, we need to make sure that we are in the public zone - adding port to the firewall public zone - `firewall-cmd --set-default-zone public`
+
+- `firewall-cmd --permanent --zone=public --add-port=1001/tcp` - success & done!
+
+# 
+
+27.) Allow your web server httpd to access files at /var/web-content, Configure your SELinux to allow that. (**REVIEW THIS**)
+
+- `ls -dZ /var/www/html` - by default Apache can access the `/var/www/html` folder b/c the context is `httpd_sys_content_t` - check the correct context
+- `mkdir -p /var/web-content` - create a new folder (it might be already created in the exam) 
+- `semanage fcontext -a -t httpd_sys_content_t "/var/web-content(/.*)?"` - Create a file context rule that will set the default type to `httpd_sys_content_t` for `/var/web-content` and all the files below it - (Notice the regular expression at the end which means the directory and all the files)
+- `restorecon -Rv /var/web-content` - use `restorecon` to the set the SELinux context for the files in `/var/web-content`
+
+ ###### <span style="color:yellow"> * These two questions should be enough to handle security questions and firewall questions</span>
+
+ ###### <span style="color:yellow"> * Just remember to know how to change the context as in this questions, add a port to SELinux, add a port for the firewall</span>
 
 # 
 
