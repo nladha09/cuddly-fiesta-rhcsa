@@ -204,7 +204,7 @@ Also, this command is what you use for an individual user, if the question asks 
 
 # 
 
-22.) ![question-22](../images/question-22.JPG)
+![question-22](../images/question-22.JPG)
 
 - `
 
