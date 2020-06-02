@@ -279,55 +279,68 @@ Also, this command is what you use for an individual user, if the question asks 
 
 # 
 
-29.) 
+29.) Add 512MB swap partition
+
+- `lsblk` 
+- `fdisk /dev/sdb` - add a partition `n` - `e` - "Enter" - "Enter" - `+512M` - `t` - "Enter" - `82` (Linux swap / Solaris) - `wq`
+- `partprobe`
+- `mkswap /dev/sdb3` - format the partition as swap space
+- `vi /etc/fstab`
+> /dev/sdb3 swap swap defaults 0 0
+- `swapon -a` - enable the newly created swap
+- `swapon -s` - verify your changes
+
+# 
+
+30.) Configure the chronyd service on server1 to synchronize the system time with the NTP time source at repo.eight.example.com
+
+- `timedatectl set-ntp yes` - turn on time sync
+- `vi /etc/chrony.conf` - & add the following:
+> `server repo.eight.example.com iburst`
+- `timedatectl` - verify that the sync is enabled
+- `chronyc sources` - verify that system is sync'd w/ repo.eight.example.com
+
+# 
+
+31.) The server is re-located to Bahamas, configure the timezone appropriately.
+
+- `tzselect` - get the timezone
+- `timedatectl set-timezone America/Nassau` - use the timezone you get to set the timezone of the server
+- `timedatectl` - verify changes
+
+# 
+
+32.) Create a thinly provisioned filesystem called "practice-fs" using stratis in a pool named "practice-pool" mounted at /practice-stratis-volume
 
 - `
 
 # 
 
-30.) 
+33.) Create vdo volume practice-vdo with the device /dev/vdd, set the logical size to 50 GB
 
 - `
 
 # 
 
-31.) 
+34.) Mount the newly created vdo on /vdo-practice with XFS filesystem so that it persists across reboots.
 
 - `
 
 # 
 
-32.) 
+35.) Use tar command to archive all contents of /etc directory in /root/etc.tar file. Compress the archived files using gzip
 
 - `
 
 # 
 
-33.) 
+36.) Create symbolic link for /home/vagrant/test that will be named /tmp/test-link
 
 - `
 
 # 
 
-34.) 
-
-- `
-
-# 
-
-35.) 
-
-- `
-
-# 
-
-36.) 
-
-- `
-
-# 
-
-37.) 
+37.) Create symbolic link for /home/vagrant/test that will be named /tmp/test-hard
 
 - `
 
