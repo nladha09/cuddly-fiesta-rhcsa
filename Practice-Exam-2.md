@@ -312,7 +312,21 @@ Also, this command is what you use for an individual user, if the question asks 
 
 32.) Create a thinly provisioned filesystem called "practice-fs" using stratis in a pool named "practice-pool" mounted at /practice-stratis-volume
 
-- RESUME Question number: 29 on page:6 (Test 2)
+- `yum install stratisd stratis-cli` - download required packages
+- `systemctl status stratisd` - check status
+- `systemctl enable stratisd` - must enable prior to creating pools or it won't work
+- `stratis pool create practice-pool /dev/sdc` - create pool w/ specified disk(s)
+    - **note**: to _extend_ the size of stratis storage pool / adding more partition(s) you could:
+    `stratis pool add-data <pool_name_firstpool> <device_/dev/sdc7>` 
+- `stratis pool list` - verify pool is created
+- `stratis filesystem create practice-pool practice-fs` - create the File System
+- `stratis filesystem list` - verify filesystem is created
+- `mkdir /practice-stratis-volume` - create mounting point
+- `lsblk --output=UUID /stratis/practice-pool/practice-fs >> /etc/fstab` - append UUID to `fstab` file
+- `vi /etc/fstab` : instead of UUID you could use device name format - `/stratis/practice-pool/practice-fs`
+> `UUID=blahblahblah   /practice-stratis-volume   xfs  defaults,x-systemd.requires=stratisd.service  0 0`
+
+###### <span style="color:yellow"> * (**IMPORTANT**) don't forget to add the options appropriately `x-systemd.requires=stratisd.service` is needed for stratis filesystems</span>
 
 # 
 
