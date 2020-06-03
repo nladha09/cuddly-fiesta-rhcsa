@@ -325,38 +325,47 @@ Also, this command is what you use for an individual user, if the question asks 
 - `lsblk --output=UUID /stratis/practice-pool/practice-fs >> /etc/fstab` - append UUID to `fstab` file
 - `vi /etc/fstab` : instead of UUID you could use device name format - `/stratis/practice-pool/practice-fs`
 > `UUID=blahblahblah   /practice-stratis-volume   xfs  defaults,x-systemd.requires=stratisd.service  0 0`
+- `mount -a` - mount the FileSystem
+- `df -h` - verify
 
 ###### <span style="color:yellow"> * (**IMPORTANT**) don't forget to add the options appropriately `x-systemd.requires=stratisd.service` is needed for stratis filesystems</span>
 
 # 
 
-33.) Create vdo volume practice-vdo with the device /dev/vdd, set the logical size to 50 GB
+33.) Create vdo volume practice-vdo with the device /dev/vdd, set the logical size to 50 GB (**this will not persist a reboot... right? so should mount even if not asked?**)
 
-- `
-
+- `yum install vdo kmod-kvdo` - install VDO (two packages)
+- `vdo create --name=practice-vdo --vdoLogicalSize=50G --device=/dev/vdd` - create the vdo
+- `vdo list` - verify the vdo has been created
 # 
 
 34.) Mount the newly created vdo on /vdo-practice with XFS filesystem so that it persists across reboots.
 
-- `
+- `mkfs -t xfs -K /dev/mapper/practice-vdo` - create the FileSystem
+- `udevadm settle` - to register the new device node (try w/o this first time)
+- `mkdir /vdo-practice` - create the directory
+- `lsblk --output=UUID /dev/mapper/practice-vdo >> /etc/fstab`
+> `UUID=blahblahblah   /vdo-practice  xfs  defaults,x-systemd.requires=vdo.service  0 0`
+- `mount -a` mount the volume
 
 # 
 
 35.) Use tar command to archive all contents of /etc directory in /root/etc.tar file. Compress the archived files using gzip
 
-- `
+- `tar -czvf /root/etc.tar.gz /etc`
 
 # 
 
 36.) Create symbolic link for /home/vagrant/test that will be named /tmp/test-link
 
-- `
+- `touch /home/vagrant/test` - create test file
+- `ln -s /home/vagrant/test /tmp/test-link`
 
 # 
 
-37.) Create symbolic link for /home/vagrant/test that will be named /tmp/test-hard
+37.) Create hard link for /home/vagrant/test that will be named /tmp/test-hard
 
-- `
+- `ln /home/vagrant/test /tmp/test-hard`
 
 # 
 
