@@ -113,7 +113,7 @@ Make sure that only nick can schedule cron jobs as a non-root user
 
 13.) Add group called testers with GID 30000
 
-- `groupadd -gid 30000 testers`
+- `groupadd -g 30000 testers`
 
 # 
 
