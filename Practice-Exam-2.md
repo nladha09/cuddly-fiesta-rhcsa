@@ -138,7 +138,7 @@ Make sure that only nick can schedule cron jobs as a non-root user
 - `vi /etc/sudoers.d/testers` - new file called `/etc/sudoers.d/testers`
 - `%testers ALL=(ALL) ALL` - add the entry
 - `cat /etc/sudoers.d/testers` - view file contents
-- `man sudoers` - if you grep on "all" or "wheel" it should help w/ syntax
+- `man sudoers` - if you grep on "(ALL)" or "wheel" it should help w/ syntax
 
 # 
 
