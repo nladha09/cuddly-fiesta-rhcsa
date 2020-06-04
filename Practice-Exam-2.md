@@ -37,7 +37,7 @@ This practice exam is for those that have gone through an RHCSA course/book and 
 - `n` - `"Enter"` - `+2G` - `t` `82` - `:wq`
 - `partprobe`
 - `mkswap /dev/sdb6`
-- `vi /etc/fstab` - no mount point
+- `vi /etc/fstab` - **no mount point - no file system for swap**
 > `/dev/sdb6` `swap` `swap` `defaults  0 0` (make entry in `fstab` file)
 - `swapon -a` - to enable / activate SWAP as per entry in `fstab` file (**no mount needed**)
 - `free -m` - to verify added SWAP
