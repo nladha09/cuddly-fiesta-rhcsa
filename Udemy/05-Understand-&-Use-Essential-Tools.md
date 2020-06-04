@@ -156,7 +156,7 @@ Commands:
 >> - Compress the archived files using gzip.</span>
 
 Commands:
-- `tar -czvf etc.tar.gz /etc` - to archive all the contents of "/etc" directory in "/root/etc.tar" file
+- `tar -czvf etc.tar.gz /etc` - to archive all the contents of "/etc" directory in "/etc.tar" file
 
 
 ## Decompressing files using `gunzip` & `bunzip2`
