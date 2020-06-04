@@ -76,4 +76,4 @@ Commands:
 
 
 **TODO**:
-- [ ]  run through these on server1
+- [x]  ~run through these on server1~
