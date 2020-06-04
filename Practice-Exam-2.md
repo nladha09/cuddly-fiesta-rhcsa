@@ -144,7 +144,7 @@ Make sure that only nick can schedule cron jobs as a non-root user
 
 17.) Set the users account for tester1, tester2, tester3 to expire in 30 days (**REVIEW**)
 
-- `date -d "+30 days" +%F` - use `date` to get the time after 30 days
+- `date -d "+30 days" +%F` - use `date` to get the time after 30 days (can `man date` to see `-d` & "full date" option)
 
     - use the time to set the account expiry:
 - `chage -E 2020-06-03 tester1` 
