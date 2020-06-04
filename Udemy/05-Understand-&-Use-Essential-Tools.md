@@ -167,7 +167,7 @@ Commands:
 
 Commands:
 - `gunzip /root/etc.tar.gz` - to decompress contents of "/root/etc.tar.gz" 
-- `bunzip2 /root/etc.targ.bz2` - to decompress contents of "/root/home.tar.bz2"
+- `bunzip2 /root/etc.tar.bz2` - to decompress contents of "/root/home.tar.bz2"
 - `man gunzip` - man page for gunzip
 - `man bunzip2` - man page for bunzip2
 
