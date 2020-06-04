@@ -73,7 +73,7 @@ This practice exam is for those that have gone through an RHCSA course/book and 
 - `systemctl restart NetworkManager`
 - `cd /etc/sysconfig/network-scripts` - verify connection settings
 - `cat /etc/resolv.conf` - verify DNS IP address
-- route -n` - verify default gateway
+- `route -n` - verify default gateway
 
 
 # 
