@@ -5,7 +5,7 @@ This practice exam is for those that have gone through an RHCSA course/book and 
 
 # 
 
-1.) Add 3 users: harry, natasha, tom. The requirements: The Additional group of the two users: harry, natasha is the admin group. The user: tom's login shell should be non-interactive.
+1.) Add 3 users: harry, natasha, tom. The requirements: The additional group of the two users: harry, natasha is the admin group. The user: tom's login shell should be non-interactive.
 
 - `useradd -G admin harry`
 - `useradd -G admin natasha`
