@@ -3,6 +3,10 @@ any tips and notes go here:
 - `man -K "thing you're searching for"` will help if stuck
 ---
 
+- `yum provides <add_help_text_here>` - to search for what you need to install for a particular task
+
+---
+
 > <span style="font-family:courier new">**Configure Apache to server a basic website that shows the test "Hello World" after connecting to it**:</span>
 
 Commands:
