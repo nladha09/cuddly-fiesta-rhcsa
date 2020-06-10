@@ -284,5 +284,5 @@ definitions:
 **TODO**:
 - [x] ~~for practice-env question: Thank you for creating this practice env; it saves a lot of time and learned a bit about Ansible & Vagrant in implementing the set up. Will `systemctl isolate graphical.target` or `systemctl set-default graphical.target` not work on the environments b/c the initial creation was not "server w/ GUI"?~~
 - [x] ~~for the exam - will you need to create a local repo via mounting the ISO or using remote baseurl?~~
-- [ ] Configuring System to use time sources (Task 10.) review - on virtualbox `/etc/chrony.conf` didn't look the same?
+- [x] ~~Configuring System to use time sources (Task 10.) review - on virtualbox `/etc/chrony.conf` didn't look the same?~~
 - [x] ~~Modifying bootloader (GRUB2) settings - try running cmds on server1 & review what changes I'm actually making with `net.ifname=0` & `biosdevnames=0`~~
