@@ -204,5 +204,5 @@ Commands:
 - **NOTE** - symbolic links will point to the complete path of a file - helpful that you don't have to navigate to the entire path; you can simply type `cat file` (in home dir) and you can see the content.
 
 **TODO**:
-- [ ]  need to study the manual page for `tar` and get used to the flags
-- [ ] need to study up on chmod / chown rwe permission commands
+- [x] ~~need to study the manual page for `tar` and get used to the flags~~
+- [x] ~~need to study up on chmod / chown rwe permission commands~~
