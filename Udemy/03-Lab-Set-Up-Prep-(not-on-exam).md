@@ -55,5 +55,5 @@ managing DNS zones & DNS record entries:
 - [x] ~~understand differences b/w `yum` & `rpm`~~
 - [x] ~~there is one more prompt that is not covered - "Do you want to configure chronyd with NTP server or pool address? [no]:" if I respond with "yes" I am asked "Enter NTP source server addresses seperated by comma, or press Enter to skip:" & then "Enter a NTP source pool address, or press Enter to skip:" --- when attempting to synchronize time it couldn't find NTP servers so it uses default chrony config.~~
 
-- [ ] figure out CA cert error when installing Free IPA server (image on cloudinary)
+- [x] ~~figure out CA cert error when installing Free IPA server (image on cloudinary)~~
 
