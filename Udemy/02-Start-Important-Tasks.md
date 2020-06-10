@@ -97,5 +97,5 @@ Commands:
 
 **TODO**:
 - [x] ~~understand `chroot` cmd~~
-- [ ] rebuild VM and do not run `touch /.autorelabel` to see if SELinux is still in `enforcing` mode (my thoughts are that it will be `disabled`)
-- [ ] boot into "emergency mode" - same as if you were booting into single user mode but put this at the end of the "linux16" line - `systemd.unit=emergency.target`
+- [x] ~~rebuild VM and do not run `touch /.autorelabel` to see if SELinux is still in `enforcing` mode (my thoughts are that it will be `disabled`)~~
+- [x] ~~boot into "emergency mode" - same as if you were booting into single user mode but put this at the end of the "linux16" line - `systemd.unit=emergency.target`~~
