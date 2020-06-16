@@ -122,7 +122,7 @@ Commands:
 > `+5G`
 > `:wq`
 - `partprobe` - to inform kernel of this partition
-- `vdo create --name vdo1 --vdoSlabSize 128M --vdoLogicalSize 50G --device /dev/sda8` - to create a VDO volume
+- `vdo create --name=vdo1 --vdoSlabSize=128M --vdoLogicalSize=50G --device=/dev/sda8` - to create a VDO volume
 - `vdo list` - to list VDO devices
 - `vdostats --human-readable` - to monitor VDO devices
 - `vdo printConfigFile` - to print VDO configurations - you can also check `/etc/vdo.conf.yml` for VDO configurations.
