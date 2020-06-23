@@ -4,7 +4,7 @@
 
 ---
 
-Mount persistently: To ensure that the NFS share is mounted at boot time, eidt the `/etc/fstab` file to add the mount entry.
+Mount persistently: To ensure that the NFS share is mounted at boot time, edit the `/etc/fstab` file to add the mount entry.
 
 ```bash
 serverb:/share /mountpoint nfs   rw,soft   0  0
