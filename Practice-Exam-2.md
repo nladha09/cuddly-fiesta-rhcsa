@@ -68,7 +68,7 @@ This practice exam is for those that have gone through an RHCSA course/book and 
 - `systemctl status NetworkManager`
 - `nmcli connection show`
 - `ip a`
-- `nmcli connection add con-name system type ethernet ifname eth0 ipv4.address 192.168.122.10/24 ipv4.gateway 192.168.122.1 ipv4.dns 192.168.122.254 ipv4.method manual` (**is "system" the name of the server, or is it always "system"???**) 
+- `nmcli connection add con-name system type ethernet ifname eth0 ipv4.address 192.168.122.10/24 ipv4.gateway 192.168.122.1 ipv4.dns 192.168.122.254 ipv4.method manual`
 - `nmcli connection up system`
 - `systemctl restart NetworkManager`
 - `cd /etc/sysconfig/network-scripts` - verify connection settings
