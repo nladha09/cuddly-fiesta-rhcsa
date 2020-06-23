@@ -17,7 +17,7 @@ serverb:/share /mountpoint nfs   rw,soft   0  0
 
 - `vi /etc/auto.master` - looks for addt'l configuration files
 
-- `/etc/auto.master.d` - This file identifies the base directory used for mount points & identifies the mapping file used for creating the automounts. (ex: /etc/auto.master.d/demo.autofs` (`.autofs`)
+- `/etc/auto.master.d` - This file identifies the base directory used for mount points & identifies the mapping file used for creating the automounts. (ex: `/etc/auto.master.d/demo.autofs` (`.autofs`)
      - add the master map entry, in this case, for indirectly mapped mounts:
      `/shares  /etc/auto.demo`
      ^ this entry uses the `/shares` directory as the base for indirect automounts. The `/etc/auto.demo` file contains the aount details. Use an absolute file name. The `auto.demo` file needs to be create before starting the `autofs` service.
