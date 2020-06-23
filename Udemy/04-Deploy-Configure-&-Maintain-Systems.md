@@ -146,7 +146,7 @@ enabled=1
 which follows this format -
 ```
 [repo id]
-description (name)
+name (description)
 baseurl
 gpgcheck
 enabled
