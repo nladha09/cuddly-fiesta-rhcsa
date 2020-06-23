@@ -59,7 +59,7 @@ Commands:
 > <span style="font-family:courier new">**Task 4. Copy all lines not containing "sEd" or "SeD" from file /root/rhcsa.txt to /root/results.txt file**:</span>
 
 Commands:
-- `more /rhcsa.txt | grep -v -i "sEd" > /root/results.txt` - to copy line not containing "sEd" or "SeD".
+- `more /rhcsa.txt | grep -v -i "sEd" > /root/results.txt` - to copy line not containing "sEd" or "SeD". `-v` = takes input line by line, and outputs only the lines in which "word" does not appear
 - `more /root/results.txt` - to verify the results
 
 
