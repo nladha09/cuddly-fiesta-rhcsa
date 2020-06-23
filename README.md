@@ -55,7 +55,7 @@ Advantages of YUM v4 over YUM v3:
 
 **TODO**:
 - [x] ~~Build VM~~
-- [ ] verify build that will be administered on exam
-- [ ] verify materials that can be used for help
-- [ ] look up how patches / updates are done on RHEL 8 (licensing involved?)
+- [x] ~~verify build that will be administered on exam~~
+- [x] ~~verify materials that can be used for help~~
+- [x] ~~look up how patches / updates are done on RHEL 8 (licensing involved?)~~
 
