@@ -36,7 +36,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 3. Configure the IP 192.168.122.10 on eth0 interface on `system.example.com` & set the DNS IP as 192.168.122.254.**:
+> <span style="font-family:courier new">**Task 3. Configure the IP 192.168.122.10 on eth0 interface on `system.example.com` & set the DNS IP as 192.168.122.254**:
 >> - Configure the Default Gateway as 192.168.122.1 (default gateway is used to route traffic to some other network when no other route specification matches the destination IP address of a packet.) 
 >> - IP assigned must be static</span>
 
