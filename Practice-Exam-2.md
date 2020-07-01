@@ -240,7 +240,7 @@ Also, this command is what you use for an individual user, if the question asks 
 
 25.) Configure the hosts file so that 10.0.0.5 could be referenced as private (**REVIEW THIS**)
 
-- `echo -e "10.0.0.5 private" >> /etc/hosts` - as root (basically editing `/etc/hosts` file
+- `echo -e "10.0.0.5 private" >> /etc/hosts` - as root (basically editing `/etc/hosts` file)
 
 # 
 
