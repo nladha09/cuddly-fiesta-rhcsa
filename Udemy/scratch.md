@@ -43,3 +43,10 @@ Commands:
 - Restrict network access using **firewall-cmd/firewalld** and Configure firewall settings using firewall-cmd/firewalld are not really new objectives.
 - Configure **superuser access** is a new objective, which asks candidates to know the sudo command and associated configuration.
 - **SELinux** context stuffs
+
+---
+
+Questions -
+
+- ` do you have to use `more` when using `grep` (?)
+- `tar` don't have to specifiy `j` or `z` when compressing (?)
