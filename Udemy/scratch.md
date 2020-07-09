@@ -51,3 +51,4 @@ Questions -
 - ` do you have to use `more` when using `grep` (?)
 - `tar` don't have to specifiy `j` or `z` when compressing (?)
 - sticky bits & `SGID` - getting more comfortable
+     - do you have to have "read" perms in order to "execute"? 

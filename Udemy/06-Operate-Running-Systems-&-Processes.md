@@ -176,7 +176,7 @@ Commands:
 
 > <span style="font-family:courier new">**Task 8. Create a custom tuned profile w/ name `myprof` based on base profile `virtual-guest` & add below mentioned different settings**:
 >> - `vm.swappiness=40`
->> - `CPU governor=powersave
+>> - `CPU governor=powersave`
 >> - Make sure system `sysctl` settings should not be overridden by tuned profile. (main configuration file of `tuned` has the `reapply sysctl=1` - so settings will not be overridden) </span>
 
 Commands:
@@ -204,6 +204,7 @@ vm.swappiness=40
 - `systemctl restart tuned` - restarting `tuned` service to make the changes affective.
 - `tuned-adm active` - listing active `tuned` profile
 - verify `sysctl -a | grep vm.swappiness` - the main config file of `tuned` (`/etc/tuned/tuned-main.conf`) has a `reapply_sysctl = 1` if we changed to `0` and `systemctl restart tuned.service` the `vm.swappiness` would be `40`.
+- `man tuned.conf` - for example of setting this up
 
 ## Merging tuned profiles
 
