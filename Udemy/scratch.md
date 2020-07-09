@@ -51,5 +51,5 @@ Questions -
 - ` do you have to use `more` when using `grep` (?)
 - `tar` don't have to specifiy `j` or `z` when compressing (?)
 - sticky bits & `SGID` - getting more comfortable
-     - do you have to have "read" perms in order to "execute"?
+     - do you have to have "read" perms in order to "execute"? (ex: read-only access must have execute rights also) so they can `cd` to dir [(?)](https://kb.iu.edu/d/abdb)
 - tuned profiles - how to find out what "type" the plug-in requested will be?
