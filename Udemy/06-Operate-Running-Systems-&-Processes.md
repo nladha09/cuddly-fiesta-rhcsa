@@ -90,7 +90,7 @@ Definition:
 IP forwarding allows an operating system (here on Linux) to forward packets as a router does or more generally to route them through other networks.
 
 Commands:
-- `sysctl -w net.ipv4.ip_forward=0` - to change the parameter in runtime, by default the parameter is set to `1` (meaning it is enabled). (**Keep in mind after reboot changes done will be lost**)
+- ~~`sysctl -w net.ipv4.ip_forward=0` - to change the parameter in runtime, by default the parameter is set to `1` (meaning it is enabled). (**Keep in mind after reboot changes done will be lost**)~~
 - for persistent change: `vi /etc/sysctl.conf` & `net.ipv4.ip_forward=0` & `:wq`
 - after reboot, new value will be effective.
 
