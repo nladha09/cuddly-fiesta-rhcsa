@@ -75,7 +75,7 @@ These values are defined:
 
 Commands:
 - `sysctl -a | grep swappiness` - to display _all_ existing values of this variable.
-- `sysctl -w vm.swappiness` - to change (_write_) the parameter _only_ during runtime (keep in mind after a reboot, changes done will be lost) - **dont' use this in the exam - everything will need to persist in the exam**
+- ~~`sysctl -w vm.swappiness` - to change (_write_) the parameter _only_ during runtime (keep in mind after a reboot, changes done will be lost)~~ - **dont' use this in the exam - everything will need to persist in the exam**
 - for persistent change: `vi /etc/sysctl.conf` & add `vm.swappiness=10` at the bottom of file & `:wq` 
 - after reboot, new value will be effective.
 
