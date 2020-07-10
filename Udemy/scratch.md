@@ -53,3 +53,4 @@ Questions -
 - sticky bits & `SGID` - getting more comfortable
      - do you have to have "read" perms in order to "execute"? (ex: read-only access must have execute rights also) so they can `cd` to dir [(?)](https://kb.iu.edu/d/abdb)
 - tuned profiles - how to find out what "type" the plug-in requested will be?
+- do you know if you can get half points or do you miss the entire question if you miss a part of it?
