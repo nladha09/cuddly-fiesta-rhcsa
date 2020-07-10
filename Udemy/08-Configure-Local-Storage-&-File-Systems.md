@@ -123,6 +123,7 @@ Commands:
 - `mkdir /fat` - to create the mount directory
 - `vi /etc/fstab` - 
 > `/dev/sda6` `/fat` `vfat` `ro 0 0` (make entry in `fstab` file - `ro` = read-only --- in the exam you will use options `0  0`)
+- `mount -a` - to mount
 
 ## Configure & add Swap to your System
 
@@ -253,7 +254,7 @@ Commands:
 
 > <span style="font-family:courier new">**Task 6. Configure LVM w/ name "lvm" from volume group "vgroup" of size 1GiB**:
 >> - Logical volume should use complete free space on volume group.
->> - Create `ext4` file system on thie volume.</span>
+>> - Create `ext4` file system on this volume.</span>
 
 Commands:
 #### create logical partition

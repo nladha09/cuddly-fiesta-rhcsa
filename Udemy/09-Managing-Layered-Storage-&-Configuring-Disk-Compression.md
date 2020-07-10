@@ -115,7 +115,7 @@ Commands:
 
 Commands:
 - `yum install vdo kmod-kvdo` - to install VDO (two packages)
-- `systemctl status vdo.service` - to check the status of VDO service (should be enables; do not need to activate, will start automatically when we create the vdo device)
+- `systemctl status vdo.service` - to check the status of VDO service (should be enabled; do not need to activate, will start automatically when we create the vdo device)
 - `fdisk /dev/sda` - to create a partition of 5 GiB of size
 > `n`
 > press "enter"
