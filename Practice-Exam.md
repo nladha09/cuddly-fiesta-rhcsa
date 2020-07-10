@@ -345,6 +345,8 @@ ENCRYPT_METHOD SHA512
 
 [sticky-bits & SGID](http://www.techcuriosity.com/resources/linux/advanced_file_permissions_in_linux.php)
 
+`chmod +t` (?)
+
 # 
 
 19.) Create a cron job that writes “This practice exam was easy and I’m ready to ace my RHCSA” to /var/log/messages at 12pm only on weekdays.
