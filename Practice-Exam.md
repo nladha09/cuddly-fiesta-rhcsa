@@ -72,7 +72,7 @@ IPV6 - fd01::100/64
 
 5.) Enable packet forwarding on system1. This should persist after reboot.
 
-- `sysctl -a | grep forwarding >> /etc/sysctl.conf`
+- `sysctl -a | grep "forward" >> /etc/sysctl.conf`
 - `vi /etc/sysctl.conf`
 - **NEED TO FIND OUT WHICH KERNEL PARAMETER IT IS ASKING FOR** (will the parameter be specified?)
 - `net.ipv4.ip_forward = 1` - change `0` to `1` 
