@@ -84,6 +84,7 @@ IPV6 - fd01::100/64
 - `systemctl set-default multi-user.target` (this should already be in effect)
 
 - `vi /etc/default/grub`
+- The `rhgb` and `quiet` options can be removed from the kernel lines provided by `grub.conf` to allow verbose messages by [default](https://access.redhat.com/solutions/28921).
 
 # 
 
