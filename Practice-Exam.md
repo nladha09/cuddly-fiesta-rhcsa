@@ -74,7 +74,7 @@ IPV6 - fd01::100/64
 
 - `sysctl -a | grep forwarding >> /etc/sysctl.conf`
 - `vi /etc/sysctl.conf`
-- **NEED TO FIND OUT WHICH KERNEL PARAMETER IT IS ASKING FOR** (will the parameter be specified
+- **NEED TO FIND OUT WHICH KERNEL PARAMETER IT IS ASKING FOR** (will the parameter be specified?)
 - `net.ipv4.ip_forward = 1` - change `0` to `1` 
 
 # 
