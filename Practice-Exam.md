@@ -62,7 +62,7 @@ IPV6 - fd01::100/64
 - `systemctl status NetworkManager`
 - `systemctl start NetworkManager`
 - `systemctl enable NetworkManager`
-- `nmcli connection modify server1 ipv4.addresses 10.0.0.5/24 ipv6.addresses fd01::100/64 ipv4.method manual ipv6.method manual`
+- `nmcli connection modify "System eth0" +ipv4.addresses 10.0.0.5/24 +ipv6.addresses fd01::100/64 ipv4.method manual ipv6.method manual`
 - `nmcli connection up "System eth0"`
 - `systemctl restart NetworkManager`
 - `nmcli connection show`
