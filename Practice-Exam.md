@@ -161,7 +161,7 @@ IPV6 - fd01::100/64
 
 13.) Find all files that are larger than 5MB in the /etc directory and copy them to /find/largefiles
 
-- `find /etc -type f -size +5M -exec cp -pv {} /find/largefiles /;` 
+- `find /etc -type f -size +5M -exec cp -pv {} /find/largefiles /;`
 
 # 
 
