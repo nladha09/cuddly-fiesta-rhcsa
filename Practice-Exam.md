@@ -62,7 +62,7 @@ IPV6 - fd01::100/64
 - `systemctl status NetworkManager`
 - `systemctl start NetworkManager`
 - `systemctl enable NetworkManager`
-- `nmcli connection modify server1 ipv4.addresses 10.0.0.5/24 ipv6.addresses fd01::100/64 ipv4.method manual ipv6.method manual`
+- `nmcli connection modify "System eth0" +ipv4.addresses 10.0.0.5/24 +ipv6.addresses fd01::100/64 ipv4.method manual ipv6.method manual`
 - `nmcli connection up "System eth0"`
 - `systemctl restart NetworkManager`
 - `nmcli connection show`
@@ -72,9 +72,9 @@ IPV6 - fd01::100/64
 
 5.) Enable packet forwarding on system1. This should persist after reboot.
 
-- `sysctl -a | grep forwarding >> /etc/sysctl.conf`
+- `sysctl -a | grep "forward" >> /etc/sysctl.conf`
 - `vi /etc/sysctl.conf`
-- **NEED TO FIND OUT WHICH KERNEL PARAMETER IT IS ASKING FOR** (will the parameter be specified
+- **NEED TO FIND OUT WHICH KERNEL PARAMETER IT IS ASKING FOR** (will the parameter be specified?)
 - `net.ipv4.ip_forward = 1` - change `0` to `1` 
 
 # 
@@ -84,6 +84,7 @@ IPV6 - fd01::100/64
 - `systemctl set-default multi-user.target` (this should already be in effect)
 
 - `vi /etc/default/grub`
+- The `rhgb` and `quiet` options can be removed from the kernel lines provided by `grub.conf` to allow verbose messages by [default](https://access.redhat.com/solutions/28921).
 
 # 
 
