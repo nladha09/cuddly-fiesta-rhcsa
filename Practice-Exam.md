@@ -353,4 +353,4 @@ ENCRYPT_METHOD SHA512
 19.) Create a cron job that writes “This practice exam was easy and I’m ready to ace my RHCSA” to /var/log/messages at 12pm only on weekdays.
 
 - `crontab -e`
-- `* 12 * * 3 echo "I'm ready to ace my RHCSA" > /var/log/messages` ( < **CHECK ON THIS**)  
+- `* 12 * * 1-5 echo "I'm ready to ace my RHCSA" > /var/log/messages` ( < **CHECK ON THIS**)  
