@@ -205,7 +205,7 @@ Commands:
 
 ---
 
-> <span style="font-family:courier new">**Task 5. Configure logical volume w/ name "volume" which should use 20 PE's from volume group "group"**:
+> <span style="font-family:courier new">**Task 5. Configure logical volume w/ name "volume" which should use 20 PE's from volume group named "group" of size 400MiB**:
 >> - Size of PE should be a 16 MiB & File System used must be ext4 File System.
 >> - Mount this on `/volume` directory & mount should be persistent.
 >> - Use UUID (universal unique identifier) to mount this.</span>
